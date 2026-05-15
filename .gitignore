@@ -44,3 +44,5 @@ desktop.ini
 # ── Python Packaging ────────────────────────────────
 *.whl
 *.tar.gz
+
+.gitignore
