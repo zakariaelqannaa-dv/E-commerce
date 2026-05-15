@@ -1,0 +1,448 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-07 12:00+0100\n"
+"PO-Revision-Date: 2026-04-07 12:00+0100\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Hai bisogno di assistenza?"
+msgstr "Brauchen Sie Hilfe?"
+
+msgid "Contattaci."
+msgstr "Kontaktieren Sie uns."
+
+msgid "Il nostro team ti risponderà entro 24 ore."
+msgstr "Unser Team wird Ihnen innerhalb von 24 Stunden antworten."
+
+msgid "Pagina Iniziale"
+msgstr "Startseite"
+
+msgid "Prodotti"
+msgstr "Produkte"
+
+msgid "Aggiungi Prodotto"
+msgstr "Produkt hinzufügen"
+
+msgid "Categorie"
+msgstr "Kategorien"
+
+msgid "Contatti"
+msgstr "Kontakt"
+
+msgid "Cerca"
+msgstr "Suchen"
+
+msgid "Preferiti"
+msgstr "Favoriten"
+
+msgid "Carrello"
+msgstr "Warenkorb"
+
+msgid "Language"
+msgstr "Sprache"
+
+msgid "Menu"
+msgstr "Menü"
+
+msgid ""
+"Una selezione curata di prodotti d'eccellenza. Ogni articolo nasce "
+"dall'attenzione al dettaglio e alla qualità dei materiali."
+msgstr ""
+"Eine sorgfältig ausgewählte Auswahl an ausgezeichneten Produkten. Jeder "
+"Artikel entsteht durch Liebe zum Detail und Qualität der Materialien."
+
+msgid "Negozio"
+msgstr "Shop"
+
+msgid "Tutti i prodotti"
+msgstr "Alle Produkte"
+
+msgid "Nuovi Arrivi"
+msgstr "Neuheiten"
+
+msgid "Best Seller"
+msgstr "Bestseller"
+
+msgid "Offerte"
+msgstr "Angebote"
+
+msgid "Informazioni"
+msgstr "Informationen"
+
+msgid "Chi siamo"
+msgstr "Über uns"
+
+msgid "Spedizioni"
+msgstr "Versand"
+
+msgid "Resi"
+msgstr "Rücksendungen"
+
+msgid "Gestione"
+msgstr "Verwaltung"
+
+msgid "Elenco prodotti"
+msgstr "Produktliste"
+
+msgid "Nuovo prodotto"
+msgstr "Neues Produkt"
+
+msgid "Ordini"
+msgstr "Bestellungen"
+
+msgid "Scrivici"
+msgstr "Schreiben Sie uns"
+
+msgid "Tutti i diritti riservati."
+msgstr "Alle Rechte vorbehalten."
+
+msgid "Privacy Policy"
+msgstr "Datenschutzrichtlinie"
+
+msgid "Cookie Policy"
+msgstr "Cookie-Richtlinie"
+
+msgid "Boutique — Qualità Senza Compromessi"
+msgstr "Boutique — Qualität Ohne Kompromisse"
+
+msgid "Nuova Collezione — Primavera 2026"
+msgstr "Neue Kollektion — Frühling 2026"
+
+msgid "Qualità"
+msgstr "Qualität"
+
+msgid "senza"
+msgstr "ohne"
+
+msgid "compromessi."
+msgstr "Kompromisse."
+
+msgid "Scopri i prodotti"
+msgstr "Produkte entdecken"
+
+msgid "Acquista ora"
+msgstr "Jetzt kaufen"
+
+msgid "Spedizione"
+msgstr "Versand"
+
+msgid "Selezione"
+msgstr "Auswahl"
+
+msgid "Ultimi Arrivi"
+msgstr "Neueste Ankünfte"
+
+msgid "Vedi tutti"
+msgstr "Alle ansehen"
+
+msgid "Vedi tutti i prodotti"
+msgstr "Alle Produkte ansehen"
+
+msgid "Gestisci il tuo catalogo"
+msgstr "Verwalten Sie Ihren Katalog"
+
+msgid "Aggiungi nuovi prodotti"
+msgstr "Fügen Sie neue Produkte hinzu"
+
+msgid "al tuo negozio"
+msgstr "zu Ihrem Shop"
+
+msgid "Spedizione Rapida"
+msgstr "Schnellversand"
+
+msgid "Consegna in 1-3 giorni lavorativi su tutto il territorio nazionale."
+msgstr "Lieferung in 1-3 Werktagen im gesamten Landesgebiet."
+
+msgid "Resi Gratuiti"
+msgstr "Kostenlose Rücksendung"
+
+msgid "30 giorni per restituire qualsiasi prodotto, senza domande."
+msgstr "30 Tage, um jedes Produkt ohne Fragen zurückzugeben."
+
+msgid "Qualità Garantita"
+msgstr "Garantierte Qualität"
+
+msgid ""
+"Ogni prodotto è selezionato e verificato prima di essere messo in vendita."
+msgstr "Jedes Produkt wird vor dem Verkauf ausgewählt und überprüft."
+
+msgid "Inserimento Prodotto"
+msgstr "Produkt eingeben"
+
+msgid "Compila i campi per aggiungere un nuovo articolo al catalogo"
+msgstr ""
+"Füllen Sie die Felder aus, um einen neuen Artikel zum Katalog hinzuzufügen"
+
+msgid "Informazioni principali"
+msgstr "Hauptinformationen"
+
+msgid "Dettagli commerciali"
+msgstr "Handelsdetails"
+
+msgid "Nome prodotto"
+msgstr "Produktname"
+
+msgid "es. Crema idratante viso"
+msgstr "z.B. Feuchtigkeitscreme Gesicht"
+
+msgid "Descrivi il prodotto in modo chiaro e dettagliato..."
+msgstr "Beschreiben Sie das Produkt klar und detailliert..."
+
+msgid "Quantità"
+msgstr "Menge"
+
+msgid "Prezzo (EUR)"
+msgstr "Preis (EUR)"
+
+msgid "Seleziona una categoria"
+msgstr "Wählen Sie eine Kategorie"
+
+msgid "Nessuna categoria disponibile"
+msgstr "Keine Kategorien verfügbar"
+
+msgid "Immagine prodotto"
+msgstr "Produktbild"
+
+msgid "Anteprima"
+msgstr "Vorschau"
+
+msgid "Immagine attuale:"
+msgstr "Aktuelles Bild:"
+
+msgid "Torna alla lista"
+msgstr "Zurück zur Liste"
+
+msgid "Salva prodotto"
+msgstr "Produkt speichern"
+
+msgid "Salva modifiche"
+msgstr "Änderungen speichern"
+
+msgid "I campi contrassegnati con"
+msgstr "Die mit"
+
+msgid "sono obbligatori."
+msgstr "markierten Felder sind Pflichtfelder."
+
+msgid "Catalogo Prodotti"
+msgstr "Produktkatalog"
+
+msgid "Cerca prodotto..."
+msgstr "Produkt suchen..."
+
+msgid "Filtra:"
+msgstr "Filtern:"
+
+msgid "Tutte le categorie"
+msgstr "Alle Kategorien"
+
+msgid "Immagine"
+msgstr "Bild"
+
+msgid "Nome"
+msgstr "Name"
+
+msgid "Qtà"
+msgstr "Menge"
+
+msgid "Prezzo"
+msgstr "Preis"
+
+msgid "Data"
+msgstr "Datum"
+
+msgid "Azioni"
+msgstr "Aktionen"
+
+msgid "Seleziona tutti"
+msgstr "Alle auswählen"
+
+msgid "Elimina selezionati"
+msgstr "Ausgewählte löschen"
+
+msgid "Annulla"
+msgstr "Abbrechen"
+
+msgid "Nessun prodotto trovato"
+msgstr "Kein Produkt gefunden"
+
+msgid "Catalogo vuoto"
+msgstr "Katalog leer"
+
+msgid ""
+"Non ci sono ancora prodotti nel catalogo. Inizia aggiungendo il primo "
+"articolo."
+msgstr ""
+"Es gibt noch keine Produkte im Katalog. Beginnen Sie, indem Sie den ersten "
+"Artikel hinzufügen."
+
+msgid "Aggiungi il primo prodotto"
+msgstr "Erstes Produkt hinzufügen"
+
+msgid "Confermi di voler eliminare questo prodotto?"
+msgstr "Möchten Sie dieses Produkt wirklich löschen?"
+
+msgid "Modifica"
+msgstr "Bearbeiten"
+
+msgid "Elimina"
+msgstr "Löschen"
+
+msgid "Contattaci"
+msgstr "Kontaktieren Sie uns"
+
+msgid "Hai domande? Il nostro team è qui per aiutarti."
+msgstr "Haben Sie Fragen? Unser Team ist hier, um Ihnen zu helfen."
+
+msgid "Dati personali"
+msgstr "Persönliche Daten"
+
+msgid "Messaggio"
+msgstr "Nachricht"
+
+msgid "Cognome"
+msgstr "Nachname"
+
+msgid "Numero di telefono"
+msgstr "Telefonnummer"
+
+msgid "Oggetto"
+msgstr "Betreff"
+
+msgid "Il tuo nome"
+msgstr "Ihr Name"
+
+msgid "Il tuo cognome"
+msgstr "Ihr Nachname"
+
+msgid "Di cosa vuoi parlarci?"
+msgstr "Worüber möchten Sie mit uns sprechen?"
+
+msgid "Scrivi il tuo messaggio qui..."
+msgstr "Schreiben Sie Ihre Nachricht hier..."
+
+msgid "Torna alla home"
+msgstr "Zurück zur Startseite"
+
+msgid "Invia messaggio"
+msgstr "Nachricht senden"
+
+msgid "Tutti i campi obbligatori devono essere compilati."
+msgstr "Alle Pflichtfelder müssen ausgefüllt werden."
+
+msgid "Prodotto"
+msgstr "Produkt"
+
+msgid "aggiunto con successo."
+msgstr "erfolgreich hinzugefügt."
+
+msgid "Errore durante il salvataggio:"
+msgstr "Fehler beim Speichern:"
+
+msgid "prodotto"
+msgstr "Produkt"
+
+msgid "prodotti"
+msgstr "Produkte"
+
+msgid "eliminato"
+msgstr "gelöscht"
+
+msgid "eliminati"
+msgstr "gelöscht"
+
+msgid "aggiornato."
+msgstr "aktualisiert."
+
+msgid "name"
+msgstr "Name"
+
+msgid "description"
+msgstr "Beschreibung"
+
+msgid "quantity"
+msgstr "Menge"
+
+msgid "price"
+msgstr "Preis"
+
+msgid "image"
+msgstr "Bild"
+
+msgid "category"
+msgstr "Kategorie"
+
+msgid "date added"
+msgstr "Datum hinzugefügt"
+
+msgid "date updated"
+msgstr "Datum aktualisiert"
+
+msgid "Categories"
+msgstr "Kategorien"
+
+msgid "Products"
+msgstr "Produkte"
+
+msgid "%(counter)s articolo nel catalogo"
+msgid_plural "%(counter)s articoli nel catalogo"
+msgstr[0] "%(counter)s Artikel im Katalog"
+msgstr[1] "%(counter)s Artikel im Katalog"
+
+msgid "Categoria"
+msgstr "Kategorie"
+
+msgid "Descrizione"
+msgstr "Beschreibung"
+
+msgid "E-Commerce"
+msgstr "E-Commerce"
+
+msgid "Email"
+msgstr "E-Mail"
+
+msgid ""
+"Grazie %(nome)s, il tuo messaggio è stato inviato. Ti risponderemo entro 24 "
+"ore."
+msgstr ""
+"Danke %(nome)s, Ihre Nachricht wurde gesendet. Wir werden innerhalb von 24 "
+"Stunden antworten."
+
+msgid "prodotti selezionati"
+msgstr "Produkte ausgewählt"
+
+msgid "prodotto selezionato"
+msgstr "Produkt ausgewählt"
+
+msgid "Home"
+msgstr "Startseite"
+
+msgid "Nuova collezione"
+msgstr "Neue Kollektion"
+
+msgid "Primavera 2026"
+msgstr "Frühling 2026"
+
+msgid "Aggiungi prodotto"
+msgstr "Produkt hinzufügen"
+
+msgid "Ultimi arrivi"
+msgstr "Neueste Ankünfte"
+
+msgid "Spedizione rapida"
+msgstr "Schnellversand"
+
+msgid "Resi gratuiti"
+msgstr "Kostenlose Rücksendung"
+
+msgid "Qualità garantita"
+msgstr "Garantierte Qualität"
+
+msgid "qty:"
+msgstr "Menge:"

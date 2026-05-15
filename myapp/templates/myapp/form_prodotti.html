@@ -1,0 +1,223 @@
+{% extends 'myapp/layout.html' %}
+{% load i18n %}
+{% block title %}{% trans "Inserimento Prodotto" %}{% endblock %}
+
+{% block body %}
+
+{% if show_code_form %}
+
+<!-- Code Entry -->
+<div class="page-header">
+  <div class="container text-center">
+    <h1>{% trans "Accesso riservato" %}</h1>
+    <p>{% trans "Inserisci il codice di accesso per aggiungere o modificare prodotti." %}</p>
+  </div>
+</div>
+<div class="container pb-6" style="padding-bottom:5rem;">
+  <div class="row justify-content-center">
+    <div class="col-lg-6 col-xl-5">
+      <div class="card-elegant text-center">
+        <form method="post" style="max-width:280px; margin:0 auto;">
+          {% csrf_token %}
+          <input type="text" name="access_code" class="form-control text-center" placeholder="{% trans "Codice di accesso" %}" required autocomplete="off" style="margin-bottom:1rem;">
+          <button type="submit" class="btn btn-primary w-100">{% trans "Accedi" %}</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% else %}
+
+<!-- Page Header -->
+<div class="page-header">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
+      <div>
+        <nav aria-label="breadcrumb" style="margin-bottom:.6rem;">
+          <ol class="breadcrumb" style="font-size:.7rem; letter-spacing:.08em; text-transform:uppercase; margin:0; gap:.4rem;">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}" style="color:var(--taupe); text-decoration:none;">{% trans "Pagina Iniziale" %}</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'lista_prodotti' %}" style="color:var(--taupe); text-decoration:none;">{% trans "Prodotti" %}</a></li>
+            <li class="breadcrumb-item active" style="color:var(--ink);">{% trans "Nuovo prodotto" %}</li>
+          </ol>
+        </nav>
+        <h1>{% trans "Inserimento Prodotto" %}</h1>
+        <p>{% trans "Compila i campi per aggiungere un nuovo articolo al catalogo" %}</p>
+      </div>
+      <a href="{% url 'esci_admin' %}"
+         style="font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:var(--taupe); text-decoration:none; white-space:nowrap; transition:color .2s; padding-top:.3rem;"
+         onmouseover="this.style.color='var(--danger)'"
+         onmouseout="this.style.color='var(--taupe)'"
+         title="{% trans 'Esci da modalità amministratore' %}">
+        <i class="bi bi-unlock" style="margin-right:.3rem;"></i> {% trans "Esci" %}
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Form -->
+<div class="container pb-6" style="padding-bottom:5rem;">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-xl-7">
+      <div class="card-elegant">
+
+        <form method="post" novalidate enctype="multipart/form-data">
+          {% csrf_token %}
+
+          <!-- Sezione: Informazioni principali -->
+          <div style="margin-bottom:2rem;">
+            <p style="font-size:.68rem; letter-spacing:.16em; text-transform:uppercase; color:var(--taupe); margin-bottom:1.5rem; padding-bottom:.8rem; border-bottom:1px solid var(--sand);">{% trans "Informazioni principali" %}</p>
+
+            <!-- Nome -->
+            <div class="mb-4">
+              <label class="form-label" for="nome">{% trans "Nome prodotto" %} <span style="color:var(--danger);">*</span></label>
+              <input type="text"
+                     class="form-control"
+                     id="nome"
+                     name="nome"
+                     placeholder="{% trans "es. Crema idratante viso" %}"
+                     value="{% if prodotto %}{{ prodotto.nome }}{% endif %}"
+                     required
+                     autocomplete="off">
+            </div>
+
+            <!-- Descrizione -->
+            <div class="mb-4">
+              <label class="form-label" for="descrizione">{% trans "Descrizione" %} <span style="color:var(--danger);">*</span></label>
+              <textarea class="form-control"
+                        id="descrizione"
+                        name="descrizione"
+                        rows="4"
+                        placeholder="{% trans "Descrivi il prodotto in modo chiaro e dettagliato..." %}"
+                        required>{% if prodotto %}{{ prodotto.descrizione }}{% endif %}</textarea>
+            </div>
+          </div>
+
+          <!-- Sezione: Dettagli commerciali -->
+          <div style="margin-bottom:2rem;">
+            <p style="font-size:.68rem; letter-spacing:.16em; text-transform:uppercase; color:var(--taupe); margin-bottom:1.5rem; padding-bottom:.8rem; border-bottom:1px solid var(--sand);">{% trans "Dettagli commerciali" %}</p>
+
+            <div class="row g-3 mb-4">
+              <!-- Quantita -->
+              <div class="col-sm-6">
+                <label class="form-label" for="quantita">{% trans "Quantità" %} <span style="color:var(--danger);">*</span></label>
+                <input type="number"
+                       class="form-control"
+                       id="quantita"
+                       name="quantita"
+                       placeholder="0"
+                       min="0"
+                       value="{% if prodotto %}{{ prodotto.quantita }}{% endif %}"
+                       required>
+              </div>
+
+              <!-- Prezzo -->
+              <div class="col-sm-6">
+                <label class="form-label" for="prezzo">{% trans "Prezzo (EUR)" %} <span style="color:var(--danger);">*</span></label>
+                <div style="position:relative;">
+                  <span style="position:absolute; left:.9rem; top:50%; transform:translateY(-50%); color:var(--taupe); font-family:var(--ff-display); font-size:.95rem;">&euro;</span>
+                  <input type="number"
+                         class="form-control"
+                         id="prezzo"
+                         name="prezzo"
+                         step="0.01"
+                         min="0"
+                         placeholder="0.00"
+                         value="{% if prodotto %}{{ prodotto.prezzo }}{% endif %}"
+                         style="padding-left:2rem;"
+                         required>
+                </div>
+              </div>
+            </div>
+
+            <!-- Categoria -->
+            <div class="mb-4">
+              <label class="form-label" for="categoria">{% trans "Categoria" %} <span style="color:var(--danger);">*</span></label>
+                <select name="categoria" id="categoria" class="form-select" required>
+                  <option value="" disabled {% if not prodotto or not prodotto.categoria %}selected{% endif %}>{% trans "Seleziona una categoria" %}</option>
+                  {% for cat in categorie %}
+                    <option value="{{ cat.id }}" {% if prodotto and prodotto.categoria.id == cat.id %}selected{% endif %}>{{ cat.nome }}</option>
+                  {% empty %}
+                  <option value="" disabled>{% trans "Nessuna categoria disponibile" %}</option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <!-- Immagine -->
+            <div class="mb-4">
+              <label class="form-label" for="immagine">{% trans "Immagine prodotto" %}</label>
+              <input type="file"
+                     class="form-control"
+                     id="immagine"
+                     name="immagine"
+                     accept="image/*"
+                     onchange="previewImage(event)">
+              <div id="imagePreview" style="margin-top:1rem; display:none;">
+                <img id="preview" src="" alt="{% trans "Anteprima" %}" style="max-width:200px; max-height:200px; object-fit:cover; border-radius:8px; border:1px solid var(--linen);">
+              </div>
+              {% if prodotto and prodotto.immagine %}
+              <div style="margin-top:1rem;">
+                <p style="font-size:.73rem; color:var(--taupe); margin-bottom:.5rem;">{% trans "Immagine attuale:" %}</p>
+                <img src="{{ prodotto.immagine.url }}" alt="{{ prodotto.nome }}" style="max-width:200px; max-height:200px; object-fit:cover; border-radius:8px; border:1px solid var(--linen);">
+              </div>
+              {% endif %}
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="divider"></div>
+          <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+            <a href="{% url 'lista_prodotti' %}"
+               style="font-size:.73rem; letter-spacing:.1em; text-transform:uppercase; color:var(--taupe); text-decoration:none; transition:.25s ease;"
+               onmouseover="this.style.color='var(--ink)'"
+               onmouseout="this.style.color='var(--taupe)'">
+              <i class="bi bi-arrow-left me-1"></i> {% trans "Torna alla lista" %}
+            </a>
+            <button type="submit" class="btn btn-primary">
+              {% if prodotto %}{% trans "Salva modifiche" %}{% else %}{% trans "Salva prodotto" %}{% endif %} <i class="bi bi-check2 ms-1"></i>
+            </button>
+          </div>
+
+        </form>
+      </div>
+
+      <!-- Helper note -->
+      <p style="font-size:.73rem; color:var(--taupe); margin-top:1.2rem; letter-spacing:.04em; text-align:center;">
+        {% trans "I campi contrassegnati con" %} <span style="color:var(--danger);">*</span> {% trans "sono obbligatori." %}
+      </p>
+    </div>
+  </div>
+</div>
+
+{% endif %}
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  // Subtle float label animation on focus
+  document.querySelectorAll('.form-control, .form-select').forEach(el => {
+    el.addEventListener('focus', () => {
+      el.closest('.mb-4, .col-sm-6')?.querySelector('.form-label')?.style &&
+        (el.closest('.mb-4, .col-sm-6').querySelector('.form-label').style.color = 'var(--accent)');
+    });
+    el.addEventListener('blur', () => {
+      el.closest('.mb-4, .col-sm-6')?.querySelector('.form-label')?.style &&
+        (el.closest('.mb-4, .col-sm-6').querySelector('.form-label').style.color = 'var(--taupe)');
+    });
+  });
+
+  // Image preview
+  function previewImage(event) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        document.getElementById('preview').src = e.target.result;
+        document.getElementById('imagePreview').style.display = 'block';
+      }
+      reader.readAsDataURL(file);
+    }
+  }
+</script>
+{% endblock %}

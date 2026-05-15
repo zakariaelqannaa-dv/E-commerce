@@ -1,0 +1,79 @@
+{% extends 'myapp/layout.html' %}
+{% load i18n %}
+{% block title %}{% trans "Gestione Categorie" %}{% endblock %}
+
+{% block body %}
+
+<div class="page-header">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-end flex-wrap gap-3">
+      <div>
+        <nav aria-label="breadcrumb" style="margin-bottom:.6rem;">
+          <ol class="breadcrumb" style="font-size:.7rem; letter-spacing:.08em; text-transform:uppercase; margin:0;">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}" style="color:var(--taupe); text-decoration:none;">{% trans "Pagina Iniziale" %}</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'lista_prodotti' %}" style="color:var(--taupe); text-decoration:none;">{% trans "Prodotti" %}</a></li>
+            <li class="breadcrumb-item active" style="color:var(--ink);">{% trans "Categorie" %}</li>
+          </ol>
+        </nav>
+        <h1>{% trans "Gestione Categorie" %}</h1>
+        <p>{% blocktrans count counter=categorie|length %}{{ counter }} categoria nel catalogo{% plural %}{{ counter }} categorie nel catalogo{% endblocktrans %}</p>
+      </div>
+      <a href="{% url 'lista_prodotti' %}" class="btn-outline-dark btn">
+        <i class="bi bi-arrow-left me-1"></i> {% trans "Torna ai prodotti" %}
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="container pb-5">
+  <div class="row g-5">
+    <!-- Existing categories -->
+    <div class="col-lg-7">
+      {% if categorie %}
+      <div class="row g-3">
+        {% for cat in categorie %}
+        <div class="col-sm-6">
+          <div style="background:var(--white); border:1px solid var(--linen); border-radius:var(--radius); padding:1.2rem 1.4rem;">
+            <h5 style="font-family:var(--ff-display); font-size:1rem; font-weight:500; color:var(--ink); margin-bottom:.3rem;">{{ cat.nome }}</h5>
+            {% if cat.descrizione %}
+            <p style="font-size:.78rem; color:var(--taupe); font-weight:300; margin-bottom:.5rem; line-height:1.4;">{{ cat.descrizione }}</p>
+            {% endif %}
+            <span style="font-size:.65rem; letter-spacing:.08em; text-transform:uppercase; color:var(--linen);">
+              {{ cat.prodotti.count }} {% trans "prodotti" %}
+            </span>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <div style="text-align:center; padding:3rem 1rem; color:var(--taupe);">
+        <i class="bi bi-tags" style="font-size:2rem; display:block; margin-bottom:.8rem; color:var(--linen);"></i>
+        <p style="font-size:.85rem;">{% trans "Nessuna categoria. Creane una qui a fianco." %}</p>
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- Add category form -->
+    <div class="col-lg-5">
+      <div class="card-elegant">
+        <h5 style="font-family:var(--ff-display); font-size:1.1rem; font-weight:500; color:var(--ink); margin-bottom:1.5rem;">{% trans "Nuova Categoria" %}</h5>
+        <form method="post">
+          {% csrf_token %}
+          <div class="mb-4">
+            <label class="form-label" for="nome">{% trans "Nome" %} <span style="color:var(--danger);">*</span></label>
+            <input type="text" class="form-control" id="nome" name="nome" placeholder="{% trans 'es. Cura viso' %}" required autocomplete="off">
+          </div>
+          <div class="mb-4">
+            <label class="form-label" for="descrizione">{% trans "Descrizione (opzionale)" %}</label>
+            <textarea class="form-control" id="descrizione" name="descrizione" rows="3" placeholder="{% trans 'Breve descrizione della categoria...' %}"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary w-100">
+            <i class="bi bi-plus me-1"></i> {% trans "Crea Categoria" %}
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

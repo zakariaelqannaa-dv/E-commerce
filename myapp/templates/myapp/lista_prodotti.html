@@ -1,0 +1,404 @@
+{% extends 'myapp/layout.html' %}
+{% load i18n %}
+{% block title %}{% trans "Catalogo Prodotti" %}{% endblock %}
+
+{% block body %}
+
+<!-- Page Header -->
+<div class="page-header">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-end flex-wrap gap-3">
+      <div>
+        <nav aria-label="breadcrumb" style="margin-bottom:.6rem;">
+          <ol class="breadcrumb" style="font-size:.7rem; letter-spacing:.08em; text-transform:uppercase; margin:0;">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}" style="color:var(--taupe); text-decoration:none;">{% trans "Pagina Iniziale" %}</a></li>
+            <li class="breadcrumb-item active" style="color:var(--ink);">{% trans "Prodotti" %}</li>
+          </ol>
+        </nav>
+        <h1>{% trans "Catalogo Prodotti" %}</h1>
+        <p>{% blocktrans count counter=prodotti|length %}{{ counter }} articolo nel catalogo{% plural %}{{ counter }} articoli nel catalogo{% endblocktrans %}</p>
+      </div>
+      {% if request.session.can_add_product %}
+      <div class="d-flex gap-2">
+        <a href="{% url 'gestione_categorie' %}" class="btn-outline-dark btn" style="white-space:nowrap;">
+          <i class="bi bi-tags me-1"></i> {% trans "Categorie" %}
+        </a>
+        <a href="{% url 'form_prodotti' %}" class="btn btn-primary" style="white-space:nowrap;">
+          <i class="bi bi-plus me-1"></i> {% trans "Nuovo prodotto" %}
+        </a>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<div class="container pb-5">
+
+  {% if prodotti %}
+
+  <!-- Search / Filter bar -->
+  <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-5">
+    <div style="position:relative; max-width:360px; width:100%;">
+      <i class="bi bi-search" style="position:absolute; left:.9rem; top:50%; transform:translateY(-50%); color:var(--taupe); font-size:.85rem; pointer-events:none;"></i>
+      <input type="text"
+             id="searchInput"
+             class="form-control"
+             placeholder="{% trans 'Cerca prodotto...' %}"
+             value="{{ query }}"
+             style="padding-left:2.4rem;">
+    </div>
+    <div class="d-flex align-items-center gap-2">
+      <label style="font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:var(--taupe); white-space:nowrap;">{% trans "Filtra:" %}</label>
+      <select id="filterCategoria" class="form-select" style="font-size:.78rem; min-width:170px;">
+        <option value="">{% trans "Tutte le categorie" %}</option>
+        {% for cat in categorie %}
+          <option value="{{ cat.nome|lower }}">{{ cat.nome }}</option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+
+  <!-- Product Grid -->
+  <div class="row g-4" id="productGrid">
+    {% for prodotto in prodotti %}
+    <div class="col-sm-6 col-lg-4 col-xl-3 product-card" data-nome="{{ prodotto.nome|lower }}" data-categoria="{{ prodotto.categoria|lower }}">
+      <a href="{% url 'dettaglio_prodotto' prodotto.id %}" class="card-shop">
+        <!-- Image -->
+        <div class="card-shop-img">
+          {% if prodotto.immagine %}
+            <img src="{{ prodotto.immagine.url }}" alt="{{ prodotto.nome }}" loading="lazy">
+          {% else %}
+            <div class="card-shop-placeholder shimmer">
+              <i class="bi bi-image" style="color:var(--linen);"></i>
+            </div>
+          {% endif %}
+          {% if prodotto.categoria %}
+            <span class="card-shop-badge">{{ prodotto.categoria }}</span>
+          {% endif %}
+          {% if prodotto.quantita < 1 %}
+            <span class="card-shop-badge card-shop-badge--sold">{% trans "Esaurito" %}</span>
+          {% elif prodotto.quantita < 5 %}
+            <span class="card-shop-badge card-shop-badge--low">{% trans "Ultimi pezzi" %}</span>
+          {% endif %}
+          <!-- Quick add to cart overlay -->
+          <div class="card-shop-overlay" onclick="event.stopPropagation();">
+            <button type="button"
+                    class="card-shop-addcart"
+                    onclick="event.stopPropagation(); addToCart('{{ prodotto.nome|escapejs }}', {{ prodotto.prezzo }});"
+                    title="{% trans 'Aggiungi al carrello' %}">
+              <i class="bi bi-bag"></i>
+            </button>
+          </div>
+        </div>
+        <!-- Info -->
+        <div class="card-shop-body">
+          <h5 class="card-shop-title">{{ prodotto.nome }}</h5>
+          <p class="card-shop-desc">{{ prodotto.descrizione }}</p>
+          <div class="card-shop-meta">
+            <span class="card-shop-price">&euro; {{ prodotto.prezzo }}</span>
+            <span class="card-shop-qty">{% trans "qty:" %} {{ prodotto.quantita }}</span>
+          </div>
+          <div class="card-shop-footer">
+            <span class="card-shop-date">{{ prodotto.data_inserimento|date:"d M Y" }}</span>
+            {% if request.session.can_add_product %}
+            <div class="card-shop-actions" onclick="event.stopPropagation();">
+              <a href="{% url 'modifica_prodotto' prodotto.id %}"
+                 class="card-shop-action"
+                 title="{% trans 'Modifica' %}"
+                 onclick="event.stopPropagation();">
+                <i class="bi bi-pencil"></i>
+              </a>
+              <button type="button"
+                      class="card-shop-action card-shop-action--delete"
+                      data-id="{{ prodotto.id }}"
+                      title="{% trans 'Elimina' %}">
+                <i class="bi bi-trash"></i>
+              </button>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Empty state after filter -->
+  <div id="noResults" style="display:none; text-align:center; padding:5rem 1rem;">
+    <div style="width:72px; height:72px; background:var(--sand); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 1.2rem;">
+      <i class="bi bi-search" style="font-size:1.6rem; color:var(--linen);"></i>
+    </div>
+    <p style="font-size:.85rem; letter-spacing:.06em; color:var(--taupe);">{% trans "Nessun prodotto trovato" %}</p>
+  </div>
+
+  {% else %}
+  <!-- Empty state -->
+  <div style="text-align:center; padding:6rem 1rem;">
+    <div style="width:80px; height:80px; background:var(--sand); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 1.5rem;">
+      <i class="bi bi-box-seam" style="font-size:2rem; color:var(--linen);"></i>
+    </div>
+    <h3 style="font-family:var(--ff-display); font-size:1.8rem; font-weight:300; color:var(--ink); margin-bottom:.5rem;">{% trans "Catalogo vuoto" %}</h3>
+    <p style="font-size:.85rem; color:var(--taupe); margin-bottom:2rem;">{% trans "Non ci sono ancora prodotti nel catalogo." %}</p>
+    {% if request.session.can_add_product %}
+    <a href="{% url 'form_prodotti' %}" class="btn btn-primary">
+      <i class="bi bi-plus me-1"></i> {% trans "Aggiungi il primo prodotto" %}
+    </a>
+    {% endif %}
+  </div>
+  {% endif %}
+
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<style>
+  .card-shop {
+    background: var(--white);
+    border: 1px solid var(--linen);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+  }
+  .card-shop:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0,0,0,.06);
+    border-color: var(--accent-lt);
+  }
+
+  .card-shop-img {
+    position: relative;
+    height: 220px;
+    background: var(--sand);
+    overflow: hidden;
+  }
+  .card-shop-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .4s ease;
+  }
+  .card-shop:hover .card-shop-img img {
+    transform: scale(1.04);
+  }
+  .card-shop-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .card-shop-placeholder i {
+    font-size: 2.5rem;
+    color: var(--linen);
+  }
+
+  .card-shop-badge {
+    position: absolute;
+    top: .7rem;
+    left: .7rem;
+    padding: .25rem .7rem;
+    font-size: .62rem;
+    font-weight: 400;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    background: var(--sand);
+    color: var(--bark);
+    border-radius: 999px;
+  }
+  .card-shop-badge--sold {
+    background: var(--danger);
+    color: var(--white);
+  }
+  .card-shop-badge--low {
+    background: #D9B8B8;
+    color: var(--danger);
+  }
+
+  .card-shop-body {
+    padding: 1.2rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .card-shop-title {
+    font-family: var(--ff-display);
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: .4rem;
+    line-height: 1.3;
+  }
+
+  .card-shop-desc {
+    font-size: .78rem;
+    color: var(--taupe);
+    font-weight: 300;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    flex: 1;
+  }
+
+  .card-shop-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: .6rem;
+  }
+  .card-shop-price {
+    font-family: var(--ff-display);
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: var(--accent);
+  }
+  .card-shop-qty {
+    font-size: .68rem;
+    letter-spacing: .06em;
+    color: var(--taupe);
+  }
+
+  .card-shop-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: .6rem;
+    border-top: 1px solid var(--sand);
+  }
+  .card-shop-date {
+    font-size: .68rem;
+    color: var(--linen);
+    letter-spacing: .04em;
+  }
+
+  .card-shop-actions {
+    display: flex;
+    gap: .4rem;
+  }
+  .card-shop-action {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--cream);
+    border: 1px solid var(--linen);
+    border-radius: var(--radius);
+    color: var(--taupe);
+    font-size: .75rem;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .card-shop-action:hover {
+    background: var(--white);
+    color: var(--accent);
+    border-color: var(--accent-lt);
+  }
+  .card-shop-action--delete:hover {
+    color: var(--danger);
+    border-color: var(--danger);
+  }
+
+  .card-shop-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(30,27,23,.35);
+    opacity: 0;
+    transition: opacity .3s ease;
+    z-index: 2;
+  }
+  .card-shop:hover .card-shop-overlay {
+    opacity: 1;
+  }
+  .card-shop-addcart {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--white);
+    border: none;
+    color: var(--ink);
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform .25s ease, background .2s;
+    transform: scale(.8);
+    box-shadow: 0 4px 12px rgba(0,0,0,.15);
+  }
+  .card-shop:hover .card-shop-addcart {
+    transform: scale(1);
+  }
+  .card-shop-addcart:hover {
+    background: var(--accent);
+    color: var(--white);
+  }
+</style>
+
+<script>
+  const JS_TRANS = {
+    confirmDelete: '{% trans "Confermi di voler eliminare questo prodotto?" %}',
+  };
+
+  // Single delete via form POST
+  const deleteForm = document.createElement('form');
+  deleteForm.method = 'post';
+  deleteForm.style.display = 'none';
+  document.body.appendChild(deleteForm);
+
+  document.querySelectorAll('.card-shop-action--delete').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (confirm(JS_TRANS.confirmDelete)) {
+        const csrf = document.querySelector('[name=csrfmiddlewaretoken]');
+        const input = csrf ? csrf.value : '';
+        deleteForm.innerHTML = `{% csrf_token %}<input type="hidden" name="prodotto_id" value="${btn.dataset.id}">`;
+        deleteForm.submit();
+      }
+    });
+  });
+
+  // Search filter
+  const searchInput = document.getElementById('searchInput');
+  const filterCat = document.getElementById('filterCategoria');
+
+  function applyFilters() {
+    const q = searchInput?.value.toLowerCase() || '';
+    const cat = filterCat?.value.toLowerCase() || '';
+    let visible = 0;
+
+    document.querySelectorAll('.product-card').forEach(card => {
+      const nome = card.dataset.nome || '';
+      const rowCat = card.dataset.categoria || '';
+      const matchQ = !q || nome.includes(q);
+      const matchCat = !cat || rowCat.includes(cat);
+      card.style.display = matchQ && matchCat ? '' : 'none';
+      if (matchQ && matchCat) visible++;
+    });
+
+    document.getElementById('noResults').style.display = visible === 0 ? 'block' : 'none';
+  }
+
+  searchInput?.addEventListener('input', applyFilters);
+  filterCat?.addEventListener('change', applyFilters);
+
+  // Auto-apply filter if ?q= was passed
+  document.addEventListener('DOMContentLoaded', () => {
+    if (searchInput?.value) applyFilters();
+  });
+</script>
+{% endblock %}

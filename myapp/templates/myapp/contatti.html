@@ -1,0 +1,149 @@
+{% extends 'myapp/layout.html' %}
+{% load i18n %}
+{% block title %}{% trans "Contatti" %} — Boutique{% endblock %}
+
+{% block body %}
+
+<div class="page-header">
+  <div class="container">
+    <nav aria-label="breadcrumb" style="margin-bottom:.6rem;">
+      <ol class="breadcrumb" style="font-size:.7rem; letter-spacing:.08em; text-transform:uppercase; margin:0; gap:.4rem;">
+        <li class="breadcrumb-item"><a href="{% url 'home' %}" style="color:var(--taupe); text-decoration:none;">{% trans "Pagina Iniziale" %}</a></li>
+        <li class="breadcrumb-item active" style="color:var(--ink);">{% trans "Contatti" %}</li>
+      </ol>
+    </nav>
+    <h1>{% trans "Contattaci" %}</h1>
+    <p>{% trans "Hai domande? Il nostro team è qui per aiutarti." %}</p>
+  </div>
+</div>
+
+<div class="container pb-6" style="padding-bottom:5rem;">
+  <div class="row g-5">
+    <!-- Contact info column -->
+    <div class="col-lg-5">
+      <div class="row g-3">
+        <div class="col-sm-6 col-lg-12">
+          <div style="background:var(--white); border:1px solid var(--linen); border-radius:var(--radius); padding:1.5rem;">
+            <i class="bi bi-geo-alt" style="font-size:1.2rem; color:var(--accent); display:block; margin-bottom:.8rem;"></i>
+            <h6 style="font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--ink); font-weight:500; margin-bottom:.4rem;">{% trans "Indirizzo" %}</h6>
+            <p style="font-size:.82rem; color:var(--taupe); font-weight:300; margin:0; line-height:1.6;">Via Roma 123<br>00100 Roma, Italia</p>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-12">
+          <div style="background:var(--white); border:1px solid var(--linen); border-radius:var(--radius); padding:1.5rem;">
+            <i class="bi bi-envelope" style="font-size:1.2rem; color:var(--accent); display:block; margin-bottom:.8rem;"></i>
+            <h6 style="font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--ink); font-weight:500; margin-bottom:.4rem;">{% trans "Email" %}</h6>
+            <p style="font-size:.82rem; color:var(--taupe); font-weight:300; margin:0; line-height:1.6;">
+              <a href="mailto:info@boutique.it" style="color:var(--accent); text-decoration:none;">info@boutique.it</a><br>
+              <span style="font-size:.75rem;">{% trans "Risposta entro 24h" %}</span>
+            </p>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-12">
+          <div style="background:var(--white); border:1px solid var(--linen); border-radius:var(--radius); padding:1.5rem;">
+            <i class="bi bi-clock" style="font-size:1.2rem; color:var(--accent); display:block; margin-bottom:.8rem;"></i>
+            <h6 style="font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--ink); font-weight:500; margin-bottom:.4rem;">{% trans "Orari" %}</h6>
+            <p style="font-size:.82rem; color:var(--taupe); font-weight:300; margin:0; line-height:1.6;">
+              {% trans "Lun–Ven" %}: 9:00 – 18:00<br>
+              {% trans "Sab" %}: 9:00 – 13:00
+            </p>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-12">
+          <div style="background:var(--white); border:1px solid var(--linen); border-radius:var(--radius); padding:1.5rem;">
+            <i class="bi bi-share" style="font-size:1.2rem; color:var(--accent); display:block; margin-bottom:.8rem;"></i>
+            <h6 style="font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--ink); font-weight:500; margin-bottom:.4rem;">{% trans "Seguici" %}</h6>
+            <div style="display:flex; gap:.6rem;">
+              <a href="#" style="width:36px; height:36px; border:1px solid var(--linen); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--taupe); text-decoration:none; transition:all .2s;" onmouseover="this.style.borderColor='var(--accent)'; this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--linen)'; this.style.color='var(--taupe)'" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+              <a href="#" style="width:36px; height:36px; border:1px solid var(--linen); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--taupe); text-decoration:none; transition:all .2s;" onmouseover="this.style.borderColor='var(--accent)'; this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--linen)'; this.style.color='var(--taupe)'" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+              <a href="#" style="width:36px; height:36px; border:1px solid var(--linen); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--taupe); text-decoration:none; transition:all .2s;" onmouseover="this.style.borderColor='var(--accent)'; this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--linen)'; this.style.color='var(--taupe)'" aria-label="Pinterest"><i class="bi bi-pinterest"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form column -->
+    <div class="col-lg-7">
+      <div class="card-elegant">
+        <form method="post" novalidate>
+          {% csrf_token %}
+
+          <div style="margin-bottom:2rem;">
+            <p style="font-size:.68rem; letter-spacing:.16em; text-transform:uppercase; color:var(--taupe); margin-bottom:1.5rem; padding-bottom:.8rem; border-bottom:1px solid var(--sand);">{% trans "Dati personali" %}</p>
+
+            <div class="row g-3 mb-4">
+              <div class="col-sm-6">
+                <label class="form-label" for="nome">{% trans "Nome" %} <span style="color:var(--danger);">*</span></label>
+                <input type="text" class="form-control" id="nome" name="nome" placeholder="{% trans 'Il tuo nome' %}" required autocomplete="given-name">
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label" for="cognome">{% trans "Cognome" %} <span style="color:var(--danger);">*</span></label>
+                <input type="text" class="form-control" id="cognome" name="cognome" placeholder="{% trans 'Il tuo cognome' %}" required autocomplete="family-name">
+              </div>
+            </div>
+
+            <div class="row g-3 mb-4">
+              <div class="col-sm-6">
+                <label class="form-label" for="email">{% trans "Email" %} <span style="color:var(--danger);">*</span></label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="{% trans 'nome@esempio.it' %}" required autocomplete="email">
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label" for="telefono">{% trans "Numero di telefono" %}</label>
+                <input type="tel" class="form-control" id="telefono" name="telefono" placeholder="+39 000 0000000" autocomplete="tel">
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-bottom:2rem;">
+            <p style="font-size:.68rem; letter-spacing:.16em; text-transform:uppercase; color:var(--taupe); margin-bottom:1.5rem; padding-bottom:.8rem; border-bottom:1px solid var(--sand);">{% trans "Messaggio" %}</p>
+
+            <div class="mb-4">
+              <label class="form-label" for="oggetto">{% trans "Oggetto" %} <span style="color:var(--danger);">*</span></label>
+              <input type="text" class="form-control" id="oggetto" name="oggetto" placeholder="{% trans 'Di cosa vuoi parlarci?' %}" required>
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label" for="messaggio">{% trans "Messaggio" %} <span style="color:var(--danger);">*</span></label>
+              <textarea class="form-control" id="messaggio" name="messaggio" rows="6" placeholder="{% trans 'Scrivi il tuo messaggio qui...' %}" required></textarea>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+          <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+            <a href="{% url 'home' %}"
+               style="font-size:.73rem; letter-spacing:.1em; text-transform:uppercase; color:var(--taupe); text-decoration:none; transition:.25s ease;"
+               onmouseover="this.style.color='var(--ink)'"
+               onmouseout="this.style.color='var(--taupe)'">
+              <i class="bi bi-arrow-left me-1"></i> {% trans "Torna alla home" %}
+            </a>
+            <button type="submit" class="btn btn-primary">
+              {% trans "Invia messaggio" %} <i class="bi bi-send ms-1"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <p style="font-size:.73rem; color:var(--taupe); margin-top:1.2rem; letter-spacing:.04em; text-align:center;">
+        {% trans "I campi contrassegnati con" %} <span style="color:var(--danger);">*</span> {% trans "sono obbligatori." %}
+      </p>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  document.querySelectorAll('.form-control, .form-select').forEach(el => {
+    el.addEventListener('focus', () => {
+      el.closest('.mb-4, .col-sm-6')?.querySelector('.form-label')?.style &&
+        (el.closest('.mb-4, .col-sm-6').querySelector('.form-label').style.color = 'var(--accent)');
+    });
+    el.addEventListener('blur', () => {
+      el.closest('.mb-4, .col-sm-6')?.querySelector('.form-label')?.style &&
+        (el.closest('.mb-4, .col-sm-6').querySelector('.form-label').style.color = 'var(--taupe)');
+    });
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,22 @@
+{
+  "name": "boutique-ecommerce",
+  "version": "1.0.0",
+  "description": "Luxury E-Commerce Django Project",
+  "main": "manage.py",
+  "scripts": {
+    "dev": ".\\venv\\Scripts\\python.exe manage.py runserver",
+    "start": ".\\venv\\Scripts\\python.exe manage.py runserver",
+    "migrate": ".\\venv\\Scripts\\python.exe manage.py migrate",
+    "makemigrations": ".\\venv\\Scripts\\python.exe manage.py makemigrations",
+    "shell": ".\\venv\\Scripts\\python.exe manage.py shell",
+    "superuser": ".\\venv\\Scripts\\python.exe manage.py createsuperuser",
+    "translations": ".\\venv\\Scripts\\python.exe -c \"import polib; [polib.pofile(f'locale/{lang}/LC_MESSAGES/django.po').save_as_mofile(f'locale/{lang}/LC_MESSAGES/django.mo') for lang in ['it','en','fr','es','de']]\""
+  },
+  "keywords": [
+    "django",
+    "ecommerce",
+    "luxury"
+  ],
+  "author": "Antigravity",
+  "license": "ISC"
+}

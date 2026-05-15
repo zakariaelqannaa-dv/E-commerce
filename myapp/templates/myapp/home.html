@@ -1,0 +1,199 @@
+{% extends 'myapp/layout.html' %}
+{% load i18n %}
+{% block title %}{% trans "Home" %} — Boutique{% endblock %}
+
+{% block body %}
+
+<!-- Hero -->
+<section style="background: var(--ink); color: var(--cream); min-height: 82vh; display: flex; align-items: center; position: relative; overflow: hidden;">
+  <div class="hero-deco hero-deco--1"></div>
+  <div class="hero-deco hero-deco--2"></div>
+  <div class="hero-deco hero-deco--3"></div>
+  <div class="container" style="position:relative; z-index:1;">
+    <div class="row align-items-center">
+      <div class="col-lg-7">
+        <p class="hero-sub" style="font-size:.72rem; letter-spacing:.22em; text-transform:uppercase; color:var(--accent-lt); font-weight:400; margin-bottom:1.5rem;">
+          {% trans "Nuova collezione" %} &mdash; {% trans "Primavera 2026" %}
+        </p>
+        <h1 class="hero-title" style="font-family:var(--ff-display); font-size:clamp(3rem,7vw,6rem); font-weight:300; line-height:1.02; letter-spacing:.02em; color:var(--cream); margin-bottom:2rem;">
+          {% trans "Qualità" %}<br>
+          <em style="font-style:italic; color:var(--accent-lt);">{% trans "senza" %}</em><br>
+          {% trans "compromessi." %}
+        </h1>
+        <p class="hero-sub" style="font-size:.9rem; font-weight:300; color:var(--taupe); max-width:420px; line-height:1.8; margin-bottom:2.5rem;">
+          {% trans "Una selezione curata di prodotti d'eccellenza. Ogni articolo nasce dall'attenzione al dettaglio e alla qualità dei materiali." %}
+        </p>
+        <div class="hero-cta d-flex flex-wrap gap-3">
+          <a href="{% url 'lista_prodotti' %}" class="btn-primary btn" style="background:var(--accent); border-color:var(--accent);">
+            {% trans "Scopri i prodotti" %}
+          </a>
+          <a href="{% url 'form_prodotti' %}" class="btn" style="background:transparent; border:1px solid rgba(255,255,255,.25); color:var(--cream); font-family:var(--ff-body); font-size:.73rem; font-weight:400; letter-spacing:.14em; text-transform:uppercase; padding:.8rem 2.2rem; border-radius:var(--radius); transition:.25s ease; text-decoration:none;"
+            onmouseover="this.style.borderColor='var(--accent-lt)'; this.style.color='var(--accent-lt)'"
+            onmouseout="this.style.borderColor='rgba(255,255,255,.25)'; this.style.color='var(--cream)'">
+            {% trans "Aggiungi prodotto" %}
+          </a>
+        </div>
+      </div>
+      <div class="col-lg-5 d-none d-lg-flex justify-content-end">
+        <div style="position:relative; width:360px; height:420px;">
+          <div style="position:absolute; top:0; right:0; width:280px; height:360px; background:var(--bark); opacity:.35; border-radius:2px;"></div>
+          <div style="position:absolute; top:40px; right:40px; width:280px; height:360px; border:1px solid rgba(196,168,130,.3); border-radius:2px;"></div>
+          <div style="position:absolute; bottom:0; left:0; width:180px; height:220px; background:var(--accent); opacity:.18; border-radius:2px;"></div>
+          <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); text-align:center;">
+            <div style="font-family:var(--ff-display); font-size:5rem; font-weight:300; color:rgba(196,168,130,.25); line-height:1;">2026</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Scroll indicator -->
+  <div style="position:absolute; bottom:2rem; left:50%; transform:translateX(-50%); z-index:1; animation:floatSlow 2s ease-in-out infinite; text-align:center;">
+    <span style="font-size:.6rem; letter-spacing:.16em; text-transform:uppercase; color:var(--taupe); display:block; margin-bottom:.3rem;">{% trans "Scorri" %}</span>
+    <i class="bi bi-chevron-down" style="color:var(--taupe); font-size:.8rem;"></i>
+  </div>
+</section>
+
+<!-- Stats bar -->
+<div class="reveal" style="background:var(--sand); border-bottom:1px solid var(--linen);">
+  <div class="container">
+    <div class="row text-center" style="padding: 1.8rem 0;">
+      <div class="col-4">
+        <div class="stat-count" style="font-family:var(--ff-display); font-size:2rem; font-weight:500; color:var(--accent);" data-count="{{ prodotti_count|default:'0' }}">0</div>
+        <div style="font-size:.68rem; letter-spacing:.12em; text-transform:uppercase; color:var(--taupe); margin-top:.2rem;">{% trans "Prodotti" %}</div>
+      </div>
+      <div class="col-4" style="border-left:1px solid var(--linen); border-right:1px solid var(--linen);">
+        <div class="stat-count" style="font-family:var(--ff-display); font-size:2rem; font-weight:500; color:var(--accent);" data-count="{{ categorie_count|default:'0' }}">0</div>
+        <div style="font-size:.68rem; letter-spacing:.12em; text-transform:uppercase; color:var(--taupe); margin-top:.2rem;">{% trans "Categorie" %}</div>
+      </div>
+      <div class="col-4">
+        <div style="font-family:var(--ff-display); font-size:2rem; font-weight:500; color:var(--accent);">24h</div>
+        <div style="font-size:.68rem; letter-spacing:.12em; text-transform:uppercase; color:var(--taupe); margin-top:.2rem;">{% trans "Spedizione" %}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Featured Products -->
+{% if ultimi_prodotti %}
+<section class="reveal" style="padding: 5rem 0;">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-end mb-5">
+      <div>
+        <p style="font-size:.68rem; letter-spacing:.18em; text-transform:uppercase; color:var(--taupe); margin-bottom:.5rem;">{% trans "Selezione" %}</p>
+        <h2 style="font-family:var(--ff-display); font-size:clamp(1.8rem,3.5vw,2.8rem); font-weight:300; color:var(--ink); margin:0;">{% trans "Ultimi arrivi" %}</h2>
+      </div>
+      <a href="{% url 'lista_prodotti' %}" style="font-size:.73rem; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); text-decoration:none; border-bottom:1px solid var(--accent-lt); padding-bottom:2px; display:none; display:inline-block;" class="d-none d-md-inline-block">
+        {% trans "Vedi tutti" %} <i class="bi bi-arrow-right ms-1"></i>
+      </a>
+    </div>
+
+    <div class="row g-4">
+      {% for p in ultimi_prodotti %}
+      <div class="col-sm-6 col-lg-3">
+        <a href="{% url 'dettaglio_prodotto' p.id %}" style="display:block; background:var(--white); border:1px solid var(--linen); border-radius:var(--radius); overflow:hidden; text-decoration:none; color:inherit; transition:.25s ease;"
+          onmouseover="this.style.borderColor='var(--accent-lt)'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,.06)'"
+          onmouseout="this.style.borderColor='var(--linen)'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+          <div style="height:220px; background:var(--sand); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;">
+            {% if p.immagine %}
+            <img src="{{ p.immagine.url }}" alt="{{ p.nome }}" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
+            {% else %}
+            <div class="shimmer" style="width:100%; height:100%; display:flex; align-items:center; justify-content:center;">
+              <i class="bi bi-image" style="font-size:2.5rem; color:var(--linen);"></i>
+            </div>
+            {% endif %}
+            {% if p.categoria %}
+            <span style="position:absolute; top:.8rem; left:.8rem;" class="badge-category">{{ p.categoria }}</span>
+            {% endif %}
+          </div>
+          <div style="padding:1.2rem 1.4rem;">
+            <p style="font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; color:var(--taupe); margin-bottom:.3rem; font-weight:400;">{{ p.categoria|default:"&nbsp;" }}</p>
+            <h5 style="font-family:var(--ff-display); font-size:1.1rem; font-weight:500; color:var(--ink); margin-bottom:.5rem; line-height:1.3;">{{ p.nome }}</h5>
+            <p style="font-size:.8rem; color:var(--taupe); font-weight:300; margin-bottom:1rem; line-height:1.5; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">{{ p.descrizione }}</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span style="font-family:var(--ff-display); font-size:1.2rem; font-weight:500; color:var(--accent);">&euro; {{ p.prezzo }}</span>
+              <span style="font-size:.72rem; color:var(--taupe); letter-spacing:.06em;">{% trans "qty:" %} {{ p.quantita }}</span>
+            </div>
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="text-center mt-5 d-md-none">
+      <a href="{% url 'lista_prodotti' %}" class="btn-outline-dark btn">{% trans "Vedi tutti i prodotti" %}</a>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- CTA Strip -->
+<section class="reveal" style="background:var(--sand); border-top:1px solid var(--linen); border-bottom:1px solid var(--linen); padding:5rem 0;">
+  <div class="container text-center">
+    <p style="font-size:.72rem; letter-spacing:.2em; text-transform:uppercase; color:var(--taupe); margin-bottom:1rem;">{% trans "Gestisci il tuo catalogo" %}</p>
+    <h2 style="font-family:var(--ff-display); font-size:clamp(2rem,4vw,3.2rem); font-weight:300; color:var(--ink); margin-bottom:1.5rem; line-height:1.15;">
+      {% trans "Aggiungi nuovi prodotti" %}<br>{% trans "al tuo negozio" %}
+    </h2>
+    <a href="{% url 'form_prodotti' %}" class="btn-primary btn">
+      {% trans "Nuovo prodotto" %} <i class="bi bi-plus ms-1"></i>
+    </a>
+  </div>
+</section>
+
+<!-- Features -->
+<section class="reveal" style="padding:5rem 0; background:var(--cream);">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div style="padding:2rem; border:1px solid var(--linen); border-radius:var(--radius); height:100%;">
+          <i class="bi bi-truck" style="font-size:1.4rem; color:var(--accent); display:block; margin-bottom:1.2rem;"></i>
+          <h6 style="font-size:.75rem; letter-spacing:.12em; text-transform:uppercase; color:var(--ink); font-weight:500; margin-bottom:.6rem;">{% trans "Spedizione rapida" %}</h6>
+          <p style="font-size:.83rem; color:var(--taupe); font-weight:300; line-height:1.7; margin:0;">{% trans "Consegna in 1-3 giorni lavorativi su tutto il territorio nazionale." %}</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div style="padding:2rem; border:1px solid var(--linen); border-radius:var(--radius); height:100%;">
+          <i class="bi bi-arrow-counterclockwise" style="font-size:1.4rem; color:var(--accent); display:block; margin-bottom:1.2rem;"></i>
+          <h6 style="font-size:.75rem; letter-spacing:.12em; text-transform:uppercase; color:var(--ink); font-weight:500; margin-bottom:.6rem;">{% trans "Resi gratuiti" %}</h6>
+          <p style="font-size:.83rem; color:var(--taupe); font-weight:300; line-height:1.7; margin:0;">{% trans "30 giorni per restituire qualsiasi prodotto, senza domande." %}</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div style="padding:2rem; border:1px solid var(--linen); border-radius:var(--radius); height:100%;">
+          <i class="bi bi-shield-check" style="font-size:1.4rem; color:var(--accent); display:block; margin-bottom:1.2rem;"></i>
+          <h6 style="font-size:.75rem; letter-spacing:.12em; text-transform:uppercase; color:var(--ink); font-weight:500; margin-bottom:.6rem;">{% trans "Qualità garantita" %}</h6>
+          <p style="font-size:.83rem; color:var(--taupe); font-weight:300; line-height:1.7; margin:0;">{% trans "Ogni prodotto è selezionato e verificato prima di essere messo in vendita." %}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  // Stats counter animation on scroll
+  const statObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseInt(el.dataset.count, 10);
+        if (isNaN(target)) return;
+        let current = 0;
+        const step = Math.max(1, Math.floor(target / 30));
+        const timer = setInterval(() => {
+          current += step;
+          if (current >= target) {
+            el.textContent = target;
+            clearInterval(timer);
+          } else {
+            el.textContent = current;
+          }
+        }, 40);
+        statObserver.unobserve(el);
+      }
+    });
+  }, { threshold: .5 });
+  document.querySelectorAll('.stat-count').forEach(el => statObserver.observe(el));
+</script>
+{% endblock %}

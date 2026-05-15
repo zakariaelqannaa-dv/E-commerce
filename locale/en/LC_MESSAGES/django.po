@@ -1,0 +1,446 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-07 12:00+0100\n"
+"PO-Revision-Date: 2026-04-07 12:00+0100\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Hai bisogno di assistenza?"
+msgstr "Need help?"
+
+msgid "Contattaci."
+msgstr "Contact us."
+
+msgid "Il nostro team ti risponderà entro 24 ore."
+msgstr "Our team will respond within 24 hours."
+
+msgid "Pagina Iniziale"
+msgstr "Home"
+
+msgid "Prodotti"
+msgstr "Products"
+
+msgid "Aggiungi Prodotto"
+msgstr "Add Product"
+
+msgid "Categorie"
+msgstr "Categories"
+
+msgid "Contatti"
+msgstr "Contact"
+
+msgid "Cerca"
+msgstr "Search"
+
+msgid "Preferiti"
+msgstr "Favorites"
+
+msgid "Carrello"
+msgstr "Cart"
+
+msgid "Language"
+msgstr "Language"
+
+msgid "Menu"
+msgstr "Menu"
+
+msgid ""
+"Una selezione curata di prodotti d'eccellenza. Ogni articolo nasce "
+"dall'attenzione al dettaglio e alla qualità dei materiali."
+msgstr ""
+"A curated selection of excellent products. Each item is born from attention "
+"to detail and quality of materials."
+
+msgid "Negozio"
+msgstr "Shop"
+
+msgid "Tutti i prodotti"
+msgstr "All products"
+
+msgid "Nuovi Arrivi"
+msgstr "New arrivals"
+
+msgid "Best Seller"
+msgstr "Best sellers"
+
+msgid "Offerte"
+msgstr "Offers"
+
+msgid "Informazioni"
+msgstr "Information"
+
+msgid "Chi siamo"
+msgstr "About us"
+
+msgid "Spedizioni"
+msgstr "Shipping"
+
+msgid "Resi"
+msgstr "Returns"
+
+msgid "Gestione"
+msgstr "Management"
+
+msgid "Elenco prodotti"
+msgstr "Product list"
+
+msgid "Nuovo prodotto"
+msgstr "New product"
+
+msgid "Ordini"
+msgstr "Orders"
+
+msgid "Scrivici"
+msgstr "Write to us"
+
+msgid "Tutti i diritti riservati."
+msgstr "All rights reserved."
+
+msgid "Privacy Policy"
+msgstr "Privacy Policy"
+
+msgid "Cookie Policy"
+msgstr "Cookie Policy"
+
+msgid "Boutique — Qualità Senza Compromessi"
+msgstr "Boutique — Quality Without Compromise"
+
+msgid "Nuova Collezione — Primavera 2026"
+msgstr "New Collection — Spring 2026"
+
+msgid "Qualità"
+msgstr "Quality"
+
+msgid "senza"
+msgstr "without"
+
+msgid "compromessi."
+msgstr "compromise."
+
+msgid "Scopri i prodotti"
+msgstr "Discover the products"
+
+msgid "Acquista ora"
+msgstr "Shop now"
+
+msgid "Spedizione"
+msgstr "Shipping"
+
+msgid "Selezione"
+msgstr "Selection"
+
+msgid "Ultimi Arrivi"
+msgstr "Latest arrivals"
+
+msgid "Vedi tutti"
+msgstr "View all"
+
+msgid "Vedi tutti i prodotti"
+msgstr "View all products"
+
+msgid "Gestisci il tuo catalogo"
+msgstr "Manage your catalog"
+
+msgid "Aggiungi nuovi prodotti"
+msgstr "Add new products"
+
+msgid "al tuo negozio"
+msgstr "to your store"
+
+msgid "Spedizione Rapida"
+msgstr "Fast shipping"
+
+msgid "Consegna in 1-3 giorni lavorativi su tutto il territorio nazionale."
+msgstr "Delivery in 1-3 business days across the entire national territory."
+
+msgid "Resi Gratuiti"
+msgstr "Free returns"
+
+msgid "30 giorni per restituire qualsiasi prodotto, senza domande."
+msgstr "30 days to return any product, no questions asked."
+
+msgid "Qualità Garantita"
+msgstr "Quality guaranteed"
+
+msgid ""
+"Ogni prodotto è selezionato e verificato prima di essere messo in vendita."
+msgstr "Every product is selected and verified before being put on sale."
+
+msgid "Inserimento Prodotto"
+msgstr "Product Entry"
+
+msgid "Compila i campi per aggiungere un nuovo articolo al catalogo"
+msgstr "Fill in the fields to add a new item to the catalog"
+
+msgid "Informazioni principali"
+msgstr "Main information"
+
+msgid "Dettagli commerciali"
+msgstr "Commercial details"
+
+msgid "Nome prodotto"
+msgstr "Product name"
+
+msgid "es. Crema idratante viso"
+msgstr "e.g. Face moisturizing cream"
+
+msgid "Descrivi il prodotto in modo chiaro e dettagliato..."
+msgstr "Describe the product clearly and in detail..."
+
+msgid "Quantità"
+msgstr "Quantity"
+
+msgid "Prezzo (EUR)"
+msgstr "Price (EUR)"
+
+msgid "Seleziona una categoria"
+msgstr "Select a category"
+
+msgid "Nessuna categoria disponibile"
+msgstr "No categories available"
+
+msgid "Immagine prodotto"
+msgstr "Product image"
+
+msgid "Anteprima"
+msgstr "Preview"
+
+msgid "Immagine attuale:"
+msgstr "Current image:"
+
+msgid "Torna alla lista"
+msgstr "Back to list"
+
+msgid "Salva prodotto"
+msgstr "Save product"
+
+msgid "Salva modifiche"
+msgstr "Save changes"
+
+msgid "I campi contrassegnati con"
+msgstr "Fields marked with"
+
+msgid "sono obbligatori."
+msgstr "are required."
+
+msgid "Catalogo Prodotti"
+msgstr "Product Catalog"
+
+msgid "Cerca prodotto..."
+msgstr "Search product..."
+
+msgid "Filtra:"
+msgstr "Filter:"
+
+msgid "Tutte le categorie"
+msgstr "All categories"
+
+msgid "Immagine"
+msgstr "Image"
+
+msgid "Nome"
+msgstr "Name"
+
+msgid "Qtà"
+msgstr "Qty"
+
+msgid "Prezzo"
+msgstr "Price"
+
+msgid "Data"
+msgstr "Date"
+
+msgid "Azioni"
+msgstr "Actions"
+
+msgid "Seleziona tutti"
+msgstr "Select all"
+
+msgid "Elimina selezionati"
+msgstr "Delete selected"
+
+msgid "Annulla"
+msgstr "Cancel"
+
+msgid "Nessun prodotto trovato"
+msgstr "No products found"
+
+msgid "Catalogo vuoto"
+msgstr "Catalog empty"
+
+msgid ""
+"Non ci sono ancora prodotti nel catalogo. Inizia aggiungendo il primo "
+"articolo."
+msgstr ""
+"There are no products in the catalog yet. Start by adding the first item."
+
+msgid "Aggiungi il primo prodotto"
+msgstr "Add the first product"
+
+msgid "Confermi di voler eliminare questo prodotto?"
+msgstr "Confirm you want to delete this product?"
+
+msgid "Modifica"
+msgstr "Edit"
+
+msgid "Elimina"
+msgstr "Delete"
+
+msgid "Contattaci"
+msgstr "Contact Us"
+
+msgid "Hai domande? Il nostro team è qui per aiutarti."
+msgstr "Have questions? Our team is here to help."
+
+msgid "Dati personali"
+msgstr "Personal information"
+
+msgid "Messaggio"
+msgstr "Message"
+
+msgid "Cognome"
+msgstr "Surname"
+
+msgid "Numero di telefono"
+msgstr "Phone number"
+
+msgid "Oggetto"
+msgstr "Subject"
+
+msgid "Il tuo nome"
+msgstr "Your name"
+
+msgid "Il tuo cognome"
+msgstr "Your surname"
+
+msgid "Di cosa vuoi parlarci?"
+msgstr "What do you want to talk to us about?"
+
+msgid "Scrivi il tuo messaggio qui..."
+msgstr "Write your message here..."
+
+msgid "Torna alla home"
+msgstr "Back to home"
+
+msgid "Invia messaggio"
+msgstr "Send message"
+
+msgid "Tutti i campi obbligatori devono essere compilati."
+msgstr "All required fields must be filled in."
+
+msgid "Prodotto"
+msgstr "Product"
+
+msgid "aggiunto con successo."
+msgstr "added successfully."
+
+msgid "Errore durante il salvataggio:"
+msgstr "Error during saving:"
+
+msgid "prodotto"
+msgstr "product"
+
+msgid "prodotti"
+msgstr "products"
+
+msgid "eliminato"
+msgstr "deleted"
+
+msgid "eliminati"
+msgstr "deleted"
+
+msgid "aggiornato."
+msgstr "updated."
+
+msgid "name"
+msgstr "name"
+
+msgid "description"
+msgstr "description"
+
+msgid "quantity"
+msgstr "quantity"
+
+msgid "price"
+msgstr "price"
+
+msgid "image"
+msgstr "image"
+
+msgid "category"
+msgstr "category"
+
+msgid "date added"
+msgstr "date added"
+
+msgid "date updated"
+msgstr "date updated"
+
+msgid "Categories"
+msgstr "Categories"
+
+msgid "Products"
+msgstr "Products"
+
+msgid "%(counter)s articolo nel catalogo"
+msgid_plural "%(counter)s articoli nel catalogo"
+msgstr[0] "%(counter)s item in the catalog"
+msgstr[1] "%(counter)s items in the catalog"
+
+msgid "Categoria"
+msgstr "Category"
+
+msgid "Descrizione"
+msgstr "Description"
+
+msgid "E-Commerce"
+msgstr "E-Commerce"
+
+msgid "Email"
+msgstr "Email"
+
+msgid ""
+"Grazie %(nome)s, il tuo messaggio è stato inviato. Ti risponderemo entro 24 "
+"ore."
+msgstr ""
+"Thank you %(nome)s, your message has been sent. We will respond within 24 "
+"hours."
+
+msgid "prodotti selezionati"
+msgstr "products selected"
+
+msgid "prodotto selezionato"
+msgstr "product selected"
+
+msgid "Home"
+msgstr "Home"
+
+msgid "Nuova collezione"
+msgstr "New collection"
+
+msgid "Primavera 2026"
+msgstr "Spring 2026"
+
+msgid "Aggiungi prodotto"
+msgstr "Add product"
+
+msgid "Ultimi arrivi"
+msgstr "Latest arrivals"
+
+msgid "Spedizione rapida"
+msgstr "Fast shipping"
+
+msgid "Resi gratuiti"
+msgstr "Free returns"
+
+msgid "Qualità garantita"
+msgstr "Quality guaranteed"
+
+msgid "qty:"
+msgstr "qty:"

@@ -1,0 +1,1442 @@
+{% load i18n static %}
+<!DOCTYPE html>
+<html lang="{% get_current_language as LANGUAGE_CODE %}{{ LANGUAGE_CODE }}">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}{% trans "E-Commerce" %}{% endblock %} — Boutique</title>
+
+  <!-- Bootstrap 5.3 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── Design Tokens ──────────────────────────── */
+    :root {
+      --cream:      #F7F4EF;
+      --sand:       #EDE9E1;
+      --linen:      #D9D3C7;
+      --taupe:      #9C9084;
+      --bark:       #5C5040;
+      --ink:        #1E1B17;
+      --accent:     #8B6F47;
+      --accent-lt:  #C4A882;
+      --white:      #FFFFFF;
+      --danger:     #B04040;
+
+      --ff-display: 'Cormorant Garamond', Georgia, serif;
+      --ff-body:    'DM Sans', sans-serif;
+
+      --nav-h:      68px;
+      --radius:     2px;
+      --transition: .25s ease;
+    }
+
+    /* ── Base ───────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--ff-body);
+      background: var(--cream);
+      color: var(--ink);
+      font-weight: 300;
+      letter-spacing: .01em;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Announcement Bar ───────────────────────── */
+    .announcement-bar {
+      background: var(--ink);
+      color: var(--accent-lt);
+      font-size: .72rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      text-align: center;
+      padding: .55rem 1rem;
+      font-family: var(--ff-body);
+      font-weight: 400;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+    .announcement-close {
+      background: none;
+      border: none;
+      color: inherit;
+      font-size: 1.2rem;
+      line-height: 1;
+      cursor: pointer;
+      opacity: .7;
+      padding: 0;
+      transition: opacity .2s;
+    }
+    .announcement-close:hover {
+      opacity: 1;
+    }
+
+    /* ── Navigation ─────────────────────────────── */
+    .site-nav {
+      height: var(--nav-h);
+      background: var(--cream);
+      border-bottom: 1px solid var(--linen);
+      position: sticky;
+      top: 0;
+      z-index: 1030;
+      backdrop-filter: blur(8px);
+    }
+
+    .site-nav .container-fluid {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+    }
+
+    /* Logo */
+    .nav-logo {
+      font-family: var(--ff-display);
+      font-size: 1.55rem;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+    .nav-logo span {
+      display: block;
+      font-size: .55rem;
+      font-family: var(--ff-body);
+      font-weight: 400;
+      letter-spacing: .22em;
+      color: var(--taupe);
+      margin-top: 2px;
+    }
+    .nav-logo:hover { color: var(--accent); }
+
+    /* Nav links */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2.4rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links a {
+      font-size: .78rem;
+      font-weight: 400;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      position: relative;
+      padding-bottom: 3px;
+      transition: color var(--transition);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 1px;
+      background: var(--accent);
+      transition: width var(--transition);
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--accent);
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      width: 100%;
+    }
+
+    /* Nav icons */
+    .nav-icons {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+
+    .nav-icon-btn {
+      background: none;
+      border: none;
+      padding: 0;
+      color: var(--ink);
+      font-size: 1.05rem;
+      cursor: pointer;
+      transition: color var(--transition);
+      display: flex;
+      align-items: center;
+    }
+    .nav-icon-btn:hover { color: var(--accent); }
+
+    /* Mobile toggler */
+    .navbar-toggler-custom {
+      display: none;
+      background: none;
+      border: none;
+      padding: 4px;
+      cursor: pointer;
+      color: var(--ink);
+      font-size: 1.3rem;
+    }
+
+    /* ── Mobile Nav ─────────────────────────────── */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: var(--nav-h);
+      left: 0;
+      width: 100%;
+      height: calc(100vh - var(--nav-h));
+      background: var(--cream);
+      z-index: 1029;
+      padding: 2rem 2rem;
+      flex-direction: column;
+      gap: .5rem;
+      border-top: 1px solid var(--linen);
+      overflow-y: auto;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      font-size: .9rem;
+      font-weight: 400;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      padding: .75rem 0;
+      border-bottom: 1px solid var(--sand);
+      transition: color var(--transition);
+    }
+    .mobile-nav a:hover { color: var(--accent); }
+
+    /* ── Main ───────────────────────────────────── */
+    main { flex: 1; }
+
+    /* ── Page Header ────────────────────────────── */
+    .page-header {
+      padding: 3.5rem 0 2.5rem;
+      border-bottom: 1px solid var(--linen);
+      margin-bottom: 3rem;
+    }
+
+    .page-header h1 {
+      font-family: var(--ff-display);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 300;
+      letter-spacing: .04em;
+      color: var(--ink);
+      margin: 0;
+      line-height: 1.1;
+    }
+
+    .page-header p {
+      color: var(--taupe);
+      font-size: .82rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin: .5rem 0 0;
+      font-weight: 400;
+    }
+
+    /* ── Cards ──────────────────────────────────── */
+    .card-elegant {
+      background: var(--white);
+      border: 1px solid var(--linen);
+      border-radius: var(--radius);
+      padding: 2.5rem 2.5rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.04);
+    }
+
+    /* ── Forms ──────────────────────────────────── */
+    .form-label {
+      font-size: .73rem;
+      font-weight: 400;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--taupe);
+      margin-bottom: .45rem;
+    }
+
+    .form-control,
+    .form-select {
+      background: var(--cream);
+      border: 1px solid var(--linen);
+      border-radius: var(--radius);
+      color: var(--ink);
+      font-family: var(--ff-body);
+      font-size: .88rem;
+      font-weight: 300;
+      padding: .65rem 1rem;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+      background: var(--white);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(139,111,71,.1);
+      color: var(--ink);
+    }
+
+    .form-control::placeholder { color: var(--linen); }
+
+    textarea.form-control { resize: vertical; min-height: 100px; }
+
+    /* ── Buttons ────────────────────────────────── */
+    .btn-primary {
+      background: var(--ink);
+      border: 1px solid var(--ink);
+      color: var(--cream);
+      font-family: var(--ff-body);
+      font-size: .73rem;
+      font-weight: 400;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      padding: .8rem 2.2rem;
+      border-radius: var(--radius);
+      transition: background var(--transition), color var(--transition), border-color var(--transition);
+    }
+
+    .btn-primary:hover,
+    .btn-primary:focus {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--white);
+    }
+
+    .btn-outline-dark {
+      background: transparent;
+      border: 1px solid var(--linen);
+      color: var(--ink);
+      font-family: var(--ff-body);
+      font-size: .73rem;
+      font-weight: 400;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: .7rem 1.8rem;
+      border-radius: var(--radius);
+      transition: all var(--transition);
+    }
+
+    .btn-outline-dark:hover {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: var(--cream);
+    }
+
+    .btn-danger-soft {
+      background: transparent;
+      border: 1px solid #D9B8B8;
+      color: var(--danger);
+      font-family: var(--ff-body);
+      font-size: .73rem;
+      font-weight: 400;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: .45rem 1rem;
+      border-radius: var(--radius);
+      transition: all var(--transition);
+    }
+    .btn-danger-soft:hover {
+      background: var(--danger);
+      border-color: var(--danger);
+      color: var(--white);
+    }
+
+    /* ── Table ──────────────────────────────────── */
+    .table-elegant {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .table-elegant thead tr {
+      border-bottom: 1px solid var(--ink);
+    }
+
+    .table-elegant thead th {
+      font-family: var(--ff-body);
+      font-size: .68rem;
+      font-weight: 400;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--taupe);
+      padding: .9rem .8rem;
+      white-space: nowrap;
+    }
+
+    .table-elegant tbody tr {
+      border-bottom: 1px solid var(--sand);
+      transition: background var(--transition);
+    }
+
+    .table-elegant tbody tr:hover {
+      background: var(--sand);
+    }
+
+    .table-elegant tbody td {
+      font-size: .85rem;
+      font-weight: 300;
+      padding: 1rem .8rem;
+      color: var(--ink);
+      vertical-align: middle;
+    }
+
+    .table-elegant .td-name {
+      font-weight: 500;
+      font-size: .9rem;
+    }
+
+    .table-elegant .td-price {
+      font-family: var(--ff-display);
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--accent);
+    }
+
+    .badge-category {
+      display: inline-block;
+      padding: .2rem .7rem;
+      font-size: .65rem;
+      font-weight: 400;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      background: var(--sand);
+      color: var(--bark);
+      border-radius: 999px;
+    }
+
+    /* ── Checkbox for delete ────────────────────── */
+    .form-check-input {
+      border: 1px solid var(--linen);
+      background-color: var(--cream);
+      border-radius: var(--radius);
+      width: 1rem;
+      height: 1rem;
+      cursor: pointer;
+    }
+    .form-check-input:checked {
+      background-color: var(--ink);
+      border-color: var(--ink);
+    }
+    .form-check-input:focus {
+      box-shadow: 0 0 0 3px rgba(139,111,71,.1);
+    }
+
+    /* ── Section Divider ────────────────────────── */
+    .divider {
+      height: 1px;
+      background: var(--linen);
+      margin: 2.5rem 0;
+    }
+
+    /* ── Footer ─────────────────────────────────── */
+    footer {
+      background: var(--ink);
+      color: var(--taupe);
+      padding: 3.5rem 0 2rem;
+      margin-top: auto;
+    }
+
+    footer .footer-logo {
+      font-family: var(--ff-display);
+      font-size: 1.6rem;
+      font-weight: 300;
+      color: var(--cream);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    footer .footer-tagline {
+      font-size: .72rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--taupe);
+      margin-top: .3rem;
+    }
+
+    footer h6 {
+      font-size: .68rem;
+      font-weight: 400;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--accent-lt);
+      margin-bottom: 1.2rem;
+    }
+
+    footer ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    footer ul li { margin-bottom: .55rem; }
+
+    footer ul li a {
+      color: var(--taupe);
+      text-decoration: none;
+      font-size: .8rem;
+      font-weight: 300;
+      transition: color var(--transition);
+    }
+
+    footer ul li a:hover { color: var(--cream); }
+
+    footer input:focus { border-color: var(--accent) !important; }
+
+    footer .footer-bottom {
+      border-top: 1px solid #2E2B26;
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      font-size: .7rem;
+      letter-spacing: .06em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: .5rem;
+    }
+
+    /* ── Alerts ─────────────────────────────────── */
+    .alert {
+      border-radius: var(--radius);
+      border-left: 3px solid var(--accent);
+      background: #FAF7F2;
+      color: var(--ink);
+      font-size: .83rem;
+      font-weight: 300;
+    }
+
+    /* ── Responsive ─────────────────────────────── */
+    @media (max-width: 991.98px) {
+      .site-nav .container-fluid { padding: 0 1.5rem; }
+      .nav-links { display: none; }
+      .navbar-toggler-custom { display: flex; }
+    }
+
+    @media (max-width: 576px) {
+      .card-elegant { padding: 1.5rem 1.25rem; }
+      .page-header { padding: 2rem 0 1.5rem; }
+    }
+
+    /* ── Badge Count ────────────────────────────── */
+    .badge-count {
+      position: absolute;
+      top: -6px;
+      right: -8px;
+      background: var(--danger);
+      color: var(--white);
+      font-size: .6rem;
+      font-weight: 500;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+
+    .nav-icon-btn { position: relative; }
+
+    /* ── Search Overlay ─────────────────────────── */
+    .search-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(30, 27, 23, 0.85);
+      z-index: 9999;
+      display: none;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 18vh;
+      backdrop-filter: blur(4px);
+    }
+    .search-overlay.open { display: flex; }
+    .search-box {
+      background: var(--white);
+      width: 90%;
+      max-width: 600px;
+      border-radius: 4px;
+      padding: 1.5rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,.3);
+      animation: slideDown .25s ease;
+    }
+    @keyframes slideDown {
+      from { transform: translateY(-20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .search-box input {
+      flex: 1;
+      border: none;
+      font-size: 1.1rem;
+      font-family: var(--ff-body);
+      color: var(--ink);
+      outline: none;
+      background: transparent;
+    }
+    .search-box input::placeholder { color: var(--taupe); }
+    .search-close {
+      background: none;
+      border: none;
+      font-size: 1.3rem;
+      color: var(--taupe);
+      cursor: pointer;
+      transition: color .2s;
+    }
+    .search-close:hover { color: var(--ink); }
+
+    /* ── Side Panel ─────────────────────────────── */
+    .side-panel {
+      position: fixed;
+      top: 0;
+      right: -420px;
+      width: 400px;
+      max-width: 90vw;
+      height: 100vh;
+      background: var(--white);
+      z-index: 9999;
+      box-shadow: -8px 0 30px rgba(0,0,0,.15);
+      transition: right .3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .side-panel.open { right: 0; }
+    .side-panel-header {
+      padding: 1.5rem 1.5rem 1rem;
+      border-bottom: 1px solid var(--linen);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .side-panel-header h5 {
+      font-family: var(--ff-display);
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: var(--ink);
+      margin: 0;
+      letter-spacing: .04em;
+    }
+    .side-panel-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.5rem;
+    }
+    .side-panel-empty {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--taupe);
+    }
+    .side-panel-empty i { font-size: 2.5rem; color: var(--linen); display: block; margin-bottom: 1rem; }
+    .side-panel-empty p { font-size: .85rem; margin: 0; }
+
+    /* ── Panel Backdrop ─────────────────────────── */
+    .panel-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(30, 27, 23, 0.5);
+      z-index: 9998;
+      display: none;
+    }
+    .panel-backdrop.open { display: block; }
+
+    /* ── Cart Item ──────────────────────────────── */
+    .cart-item, .fav-item {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--sand);
+      align-items: center;
+    }
+    .cart-item-img, .fav-item-img {
+      width: 60px;
+      height: 60px;
+      background: var(--sand);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .cart-item-img i, .fav-item-img i { color: var(--linen); font-size: 1.2rem; }
+    .cart-item-info, .fav-item-info { flex: 1; }
+    .cart-item-info h6, .fav-item-info h6 {
+      font-size: .85rem;
+      font-weight: 500;
+      color: var(--ink);
+      margin: 0 0 .2rem;
+    }
+    .cart-item-info p, .fav-item-info p {
+      font-size: .75rem;
+      color: var(--taupe);
+      margin: 0;
+    }
+    .cart-item-price {
+      font-family: var(--ff-display);
+      font-size: .95rem;
+      font-weight: 500;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+    .btn-remove {
+      background: none;
+      border: none;
+      color: var(--taupe);
+      cursor: pointer;
+      font-size: .85rem;
+      padding: .25rem;
+      transition: color .2s;
+    }
+    .btn-remove:hover { color: var(--danger); }
+
+    /* ── Cart Footer ────────────────────────────── */
+    .cart-footer {
+      padding: 1rem 1.5rem 1.5rem;
+      border-top: 1px solid var(--linen);
+    }
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .cart-total span:first-child {
+      font-size: .73rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--taupe);
+    }
+    .cart-total span:last-child {
+      font-family: var(--ff-display);
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: var(--accent);
+    }
+    .btn-checkout {
+      width: 100%;
+      background: var(--ink);
+      border: 1px solid var(--ink);
+      color: var(--cream);
+      font-family: var(--ff-body);
+      font-size: .73rem;
+      font-weight: 400;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      padding: .9rem;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background .2s, border-color .2s;
+    }
+    .btn-checkout:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    /* ── Scroll Reveal ──────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Shimmer Placeholder ────────────────────── */
+    .shimmer {
+      background: linear-gradient(90deg, var(--sand) 25%, var(--linen) 50%, var(--sand) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+    }
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* ── Back to Top ────────────────────────────── */
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--ink);
+      color: var(--cream);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      z-index: 1050;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s ease, transform .3s ease, background .2s;
+      transform: translateY(10px);
+      box-shadow: 0 4px 12px rgba(0,0,0,.15);
+    }
+    .back-to-top.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+    .back-to-top:hover {
+      background: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* ── Toast Notifications ────────────────────── */
+    .toast-container {
+      position: fixed;
+      top: calc(var(--nav-h) + .5rem);
+      right: 1.5rem;
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+      pointer-events: none;
+    }
+    .toast-msg {
+      background: var(--white);
+      border: 1px solid var(--linen);
+      border-radius: var(--radius);
+      padding: .8rem 1.2rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,.1);
+      font-size: .82rem;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      animation: toastIn .3s ease, toastOut .3s ease 2.2s forwards;
+      max-width: 340px;
+      pointer-events: auto;
+    }
+    .toast-msg i { font-size: 1.1rem; color: var(--accent); }
+    @keyframes toastIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes toastOut {
+      from { transform: translateX(0); opacity: 1; }
+      to { transform: translateX(100%); opacity: 0; }
+    }
+
+    /* ── Cart Qty Adjust ────────────────────────── */
+    .cart-qty {
+      display: flex;
+      align-items: center;
+      gap: .3rem;
+    }
+    .cart-qty button {
+      width: 26px;
+      height: 26px;
+      border: 1px solid var(--linen);
+      background: var(--cream);
+      border-radius: 2px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .7rem;
+      color: var(--ink);
+      transition: all .2s;
+    }
+    .cart-qty button:hover {
+      background: var(--sand);
+      border-color: var(--taupe);
+    }
+    .cart-qty span {
+      min-width: 24px;
+      text-align: center;
+      font-size: .8rem;
+      color: var(--ink);
+    }
+
+    /* ── Nav Scroll Shrink ──────────────────────── */
+    .site-nav.scrolled {
+      height: 56px;
+      box-shadow: 0 1px 8px rgba(0,0,0,.06);
+    }
+    .site-nav.scrolled .nav-logo {
+      font-size: 1.3rem;
+    }
+    .site-nav.scrolled .nav-logo span {
+      display: none;
+    }
+
+    /* ── Image Zoom Container ───────────────────── */
+    .img-zoom {
+      overflow: hidden;
+      cursor: crosshair;
+    }
+    .img-zoom img {
+      transition: transform .4s ease;
+    }
+    .img-zoom:hover img {
+      transform: scale(1.15);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+  <div class="announcement-bar" id="announcementBar">
+    <span>{% trans "Hai bisogno di assistenza?" %} <strong>{% trans "Contattaci." %}</strong> {% trans "Il nostro team ti risponderà entro 24 ore." %}</span>
+    <button type="button" class="announcement-close" onclick="dismissAnnouncement()" aria-label="{% trans 'Chiudi' %}">&times;</button>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="site-nav">
+    <div class="container-fluid">
+      <!-- Logo -->
+      <a href="{% url 'home' %}" class="nav-logo">
+        Boutique
+        <span>Collection 2026</span>
+      </a>
+
+      <!-- Desktop Links -->
+      <ul class="nav-links">
+        <li><a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">{% trans "Pagina Iniziale" %}</a></li>
+        <li><a href="{% url 'lista_prodotti' %}" class="{% if request.resolver_match.url_name == 'lista_prodotti' %}active{% endif %}">{% trans "Prodotti" %}</a></li>
+        {% if request.session.can_add_product %}
+        <li><a href="{% url 'gestione_categorie' %}" class="{% if request.resolver_match.url_name == 'gestione_categorie' %}active{% endif %}">{% trans "Categorie" %}</a></li>
+        <li><a href="{% url 'form_prodotti' %}" class="{% if request.resolver_match.url_name == 'form_prodotti' %}active{% endif %}">{% trans "Aggiungi Prodotto" %}</a></li>
+        <li><a href="{% url 'esci_admin' %}" style="color:var(--taupe);" title="{% trans 'Esci da modalità amministratore' %}"><i class="bi bi-unlock"></i></a></li>
+        {% endif %}
+        <li><a href="{% url 'contatti' %}">{% trans "Contatti" %}</a></li>
+      </ul>
+
+      <!-- Icons + Mobile toggle -->
+      <div class="d-flex align-items-center gap-3">
+        <div class="nav-icons d-none d-lg-flex">
+          <button class="nav-icon-btn" title="{% trans 'Cerca' %}" onclick="toggleSearch()"><i class="bi bi-search"></i></button>
+          <button class="nav-icon-btn" title="{% trans 'Preferiti' %}" onclick="toggleFavorites()" id="favBtn"><i class="bi bi-heart"></i><span class="badge-count" id="favCount" style="display:none;">0</span></button>
+          <button class="nav-icon-btn" title="{% trans 'Carrello' %}" onclick="toggleCart()" id="cartBtn"><i class="bi bi-bag"></i><span class="badge-count" id="cartCount" style="display:none;">0</span></button>
+        </div>
+
+        <!-- Language Selector -->
+        <div class="dropdown" style="margin-left:.5rem;">
+          <button class="nav-icon-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="{% trans 'Language' %}" style="font-size:.75rem; letter-spacing:.08em; text-transform:uppercase; gap:.3rem;">
+            <i class="bi bi-translate"></i>
+            <span class="d-none d-lg-inline">{{ request.LANGUAGE_CODE|upper }}</span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end" style="min-width:8rem; font-size:.78rem;">
+            {% for code, name in LANGUAGES %}
+            <li>
+              <form action="{% url 'set_language' %}" method="post" style="display:inline;" id="langForm_{{ code }}">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                <input type="hidden" name="language" value="{{ code }}">
+                <button type="submit" class="dropdown-item{% if code == request.LANGUAGE_CODE %} active{% endif %}" style="font-size:.78rem;">
+                  {{ name }}
+                </button>
+              </form>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <button class="navbar-toggler-custom" id="mobileToggle" aria-label="{% trans 'Menu' %}">
+          <i class="bi bi-list" id="toggleIcon"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Nav -->
+  <div class="mobile-nav" id="mobileNav">
+    <a href="{% url 'home' %}">{% trans "Pagina Iniziale" %}</a>
+    <a href="{% url 'lista_prodotti' %}">{% trans "Prodotti" %}</a>
+    {% if request.session.can_add_product %}
+    <a href="{% url 'gestione_categorie' %}">{% trans "Categorie" %}</a>
+    <a href="{% url 'form_prodotti' %}">{% trans "Aggiungi Prodotto" %}</a>
+    <a href="{% url 'esci_admin' %}" style="color:var(--taupe); font-size:.75rem;"><i class="bi bi-unlock"></i> {% trans "Esci" %}</a>
+    {% endif %}
+    <a href="{% url 'contatti' %}">{% trans "Contatti" %}</a>
+  </div>
+
+  <!-- Messages -->
+  {% if messages %}
+  <div class="container mt-3">
+    {% for message in messages %}
+    <div class="alert alert-dismissible fade show" role="alert">
+      {{ message }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <!-- Search Overlay -->
+  <div class="search-overlay" id="searchOverlay" onclick="closeSearch(event)">
+    <div class="search-box" onclick="event.stopPropagation()">
+      <i class="bi bi-search" style="color:var(--taupe); font-size:1.1rem;"></i>
+      <input type="text" id="globalSearch" placeholder="{% trans 'Cerca prodotti, categorie...' %}" autocomplete="off"
+             onkeydown="if(event.key==='Enter'){window.location.href='{% url 'lista_prodotti' %}?q='+encodeURIComponent(this.value);}">
+      <button class="search-close" onclick="toggleSearch()" title="{% trans 'Chiudi' %}"><i class="bi bi-x-lg"></i></button>
+    </div>
+  </div>
+
+  <!-- Favorites Panel -->
+  <div class="side-panel" id="favPanel">
+    <div class="side-panel-header">
+      <h5><i class="bi bi-heart me-2" style="color:var(--accent);"></i>Preferiti</h5>
+      <button class="search-close" onclick="toggleFavorites()" title="Chiudi"><i class="bi bi-x-lg"></i></button>
+    </div>
+    <div class="side-panel-body" id="favPanelBody">
+      <div class="side-panel-empty" id="favEmpty">
+        <i class="bi bi-heart"></i>
+        <p>Nessun prodotto nei preferiti.</p>
+      </div>
+      <div id="favList"></div>
+    </div>
+  </div>
+
+  <!-- Cart Panel -->
+  <div class="side-panel" id="cartPanel">
+    <div class="side-panel-header">
+      <h5><i class="bi bi-bag me-2" style="color:var(--accent);"></i>Carrello</h5>
+      <button class="search-close" onclick="toggleCart()" title="Chiudi"><i class="bi bi-x-lg"></i></button>
+    </div>
+    <div class="side-panel-body" id="cartPanelBody">
+      <div class="side-panel-empty" id="cartEmpty">
+        <i class="bi bi-bag"></i>
+        <p>Il tuo carrello &egrave; vuoto.</p>
+      </div>
+      <div id="cartList"></div>
+    </div>
+    <div class="cart-footer" id="cartFooter" style="display:none;">
+      <div class="cart-total">
+        <span>Totale</span>
+        <span id="cartTotal">&euro; 0.00</span>
+      </div>
+      <button class="btn-checkout">Procedi al checkout <i class="bi bi-arrow-right ms-1"></i></button>
+    </div>
+  </div>
+
+  <!-- Panel Backdrop -->
+  <div class="panel-backdrop" id="panelBackdrop" onclick="closePanels()"></div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Back to Top -->
+  <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="{% trans 'Torna su' %}">
+    <i class="bi bi-chevron-up"></i>
+  </button>
+
+  <!-- Main Content -->
+  <main>
+    {% block body %}{% endblock %}
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-3 mb-2">
+          <div class="footer-logo">Boutique</div>
+          <div class="footer-tagline">Collection 2026</div>
+          <p class="mt-3" style="font-size:.8rem; line-height:1.7; color:var(--taupe); font-weight:300; max-width:280px;">
+            {% trans "Una selezione curata di prodotti d'eccellenza." %}
+          </p>
+          <!-- Newsletter -->
+          <div style="margin-top:1.5rem;">
+            <h6 style="font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent-lt); margin-bottom:.6rem; font-weight:400;">{% trans "Newsletter" %}</h6>
+            <form onsubmit="event.preventDefault(); showToast('&#8226; Iscrizione completata!', 'bi-envelope-check'); this.querySelector('input').value='';" style="display:flex; gap:.4rem;">
+              <input type="email" placeholder="{% trans 'La tua email' %}" required style="flex:1; min-width:0; background:rgba(255,255,255,.08); border:1px solid #2E2B26; border-radius:2px; padding:.5rem .7rem; font-size:.75rem; color:var(--cream); outline:none; font-family:var(--ff-body);">
+              <button type="submit" style="background:var(--accent); border:none; color:var(--white); border-radius:2px; padding:.5rem .8rem; cursor:pointer; font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; font-family:var(--ff-body); transition:background .2s;" onmouseover="this.style.background='var(--accent-lt)'" onmouseout="this.style.background='var(--accent)'"><i class="bi bi-send"></i></button>
+            </form>
+          </div>
+          <!-- Social -->
+          <div style="margin-top:1rem; display:flex; gap:.5rem;">
+            <a href="#" style="width:32px; height:32px; border:1px solid #2E2B26; border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--taupe); text-decoration:none; font-size:.75rem; transition:all .2s;" onmouseover="this.style.borderColor='var(--accent)'; this.style.color='var(--accent)'" onmouseout="this.style.borderColor='#2E2B26'; this.style.color='var(--taupe)'" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+            <a href="#" style="width:32px; height:32px; border:1px solid #2E2B26; border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--taupe); text-decoration:none; font-size:.75rem; transition:all .2s;" onmouseover="this.style.borderColor='var(--accent)'; this.style.color='var(--accent)'" onmouseout="this.style.borderColor='#2E2B26'; this.style.color='var(--taupe)'" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+            <a href="#" style="width:32px; height:32px; border:1px solid #2E2B26; border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--taupe); text-decoration:none; font-size:.75rem; transition:all .2s;" onmouseover="this.style.borderColor='var(--accent)'; this.style.color='var(--accent)'" onmouseout="this.style.borderColor='#2E2B26'; this.style.color='var(--taupe)'" aria-label="Pinterest"><i class="bi bi-pinterest"></i></a>
+          </div>
+        </div>
+        <div class="col-6 col-lg-2 offset-lg-1">
+          <h6>{% trans "Negozio" %}</h6>
+          <ul>
+            <li><a href="{% url 'lista_prodotti' %}">{% trans "Tutti i prodotti" %}</a></li>
+            <li><a href="#">{% trans "Nuovi Arrivi" %}</a></li>
+            <li><a href="#">{% trans "Best Seller" %}</a></li>
+            <li><a href="#">{% trans "Offerte" %}</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h6>{% trans "Informazioni" %}</h6>
+          <ul>
+            <li><a href="#">{% trans "Chi siamo" %}</a></li>
+            <li><a href="#">{% trans "Spedizioni" %}</a></li>
+            <li><a href="#">{% trans "Resi" %}</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h6>{% trans "Gestione" %}</h6>
+          <ul>
+            <li><a href="{% url 'lista_prodotti' %}">{% trans "Elenco prodotti" %}</a></li>
+            <li><a href="{% url 'form_prodotti' %}">{% trans "Nuovo prodotto" %}</a></li>
+            <li><a href="{% url 'gestione_categorie' %}">{% trans "Categorie" %}</a></li>
+            <li><a href="#">{% trans "Ordini" %}</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h6>{% trans "Contatti" %}</h6>
+          <ul>
+            <li><a href="{% url 'contatti' %}">{% trans "Scrivici" %}</a></li>
+            <li><a href="mailto:info@boutique.it">info@boutique.it</a></li>
+            <li><a href="{% url 'contatti' %}">{% trans "Assistenza 24h" %}</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="d-flex flex-wrap align-items-center gap-3">
+          <span>&copy; 2026 Boutique. {% trans "Tutti i diritti riservati." %}</span>
+          <!-- Payment icons -->
+          <div style="display:flex; gap:.4rem; font-size:1.2rem; color:var(--taupe);">
+            <i class="bi bi-credit-card-2-front" title="Visa"></i>
+            <i class="bi bi-credit-card" title="Mastercard"></i>
+            <i class="bi bi-paypal" title="PayPal"></i>
+          </div>
+        </div>
+        <span>{% trans "Privacy Policy" %} &nbsp;&middot;&nbsp; {% trans "Cookie Policy" %} &nbsp;&middot;&nbsp; P.IVA 00000000000</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // Mobile nav toggle
+    const toggle = document.getElementById('mobileToggle');
+    const mobileNav = document.getElementById('mobileNav');
+    const icon = document.getElementById('toggleIcon');
+    toggle?.addEventListener('click', () => {
+      const open = mobileNav.classList.toggle('open');
+      icon.className = open ? 'bi bi-x-lg' : 'bi bi-list';
+    });
+
+    // ── Search ─────────────────────────────────
+    function toggleSearch() {
+      const overlay = document.getElementById('searchOverlay');
+      const isOpen = overlay.classList.contains('open');
+      overlay.classList.toggle('open');
+      if (!isOpen) {
+        setTimeout(() => document.getElementById('globalSearch')?.focus(), 300);
+      } else {
+        document.getElementById('globalSearch')?.blur();
+      }
+    }
+
+    function closeSearch(e) {
+      if (e.target === document.getElementById('searchOverlay')) {
+        toggleSearch();
+      }
+    }
+
+    // Close search on Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const overlay = document.getElementById('searchOverlay');
+        if (overlay.classList.contains('open')) toggleSearch();
+        closePanels();
+      }
+    });
+
+    // ── Favorites ──────────────────────────────
+    let favorites = JSON.parse(localStorage.getItem('boutique_favs') || '[]');
+
+    function toggleFavorites() {
+      const panel = document.getElementById('favPanel');
+      const backdrop = document.getElementById('panelBackdrop');
+      const isOpen = panel.classList.contains('open');
+
+      // Close search first
+      document.getElementById('searchOverlay').classList.remove('open');
+
+      if (isOpen) {
+        panel.classList.remove('open');
+        backdrop.classList.remove('open');
+      } else {
+        closePanels();
+        panel.classList.add('open');
+        backdrop.classList.add('open');
+        renderFavorites();
+      }
+    }
+
+    function renderFavorites() {
+      const list = document.getElementById('favList');
+      const empty = document.getElementById('favEmpty');
+      const badge = document.getElementById('favCount');
+
+      if (favorites.length === 0) {
+        empty.style.display = 'block';
+        list.innerHTML = '';
+        badge.style.display = 'none';
+        return;
+      }
+
+      empty.style.display = 'none';
+      badge.style.display = 'flex';
+      badge.textContent = favorites.length;
+
+      list.innerHTML = favorites.map((item, i) => `
+        <div class="fav-item">
+          <div class="fav-item-img">
+            <i class="bi bi-image"></i>
+          </div>
+          <div class="fav-item-info">
+            <h6>${item.name}</h6>
+            <p>${item.category || 'Prodotto'}</p>
+          </div>
+          <button class="btn-remove" onclick="removeFav(${i})" title="Rimuovi"><i class="bi bi-x"></i></button>
+        </div>
+      `).join('');
+    }
+
+    function removeFav(index) {
+      favorites.splice(index, 1);
+      localStorage.setItem('boutique_favs', JSON.stringify(favorites));
+      renderFavorites();
+      updateBadges();
+    }
+
+    function addToFavorites(name, category) {
+      const exists = favorites.find(f => f.name === name);
+      if (exists) {
+        favorites = favorites.filter(f => f.name !== name);
+      } else {
+        favorites.push({ name, category });
+      }
+      localStorage.setItem('boutique_favs', JSON.stringify(favorites));
+      updateBadges();
+    }
+
+    // ── Cart ───────────────────────────────────
+    let cart = JSON.parse(localStorage.getItem('boutique_cart') || '[]');
+
+    function toggleCart() {
+      const panel = document.getElementById('cartPanel');
+      const backdrop = document.getElementById('panelBackdrop');
+      const isOpen = panel.classList.contains('open');
+
+      // Close search first
+      document.getElementById('searchOverlay').classList.remove('open');
+
+      if (isOpen) {
+        panel.classList.remove('open');
+        backdrop.classList.remove('open');
+      } else {
+        closePanels();
+        panel.classList.add('open');
+        backdrop.classList.add('open');
+        renderCart();
+      }
+    }
+
+    function renderCart() {
+      const list = document.getElementById('cartList');
+      const empty = document.getElementById('cartEmpty');
+      const footer = document.getElementById('cartFooter');
+      const badge = document.getElementById('cartCount');
+      const total = document.getElementById('cartTotal');
+
+      if (cart.length === 0) {
+        empty.style.display = 'block';
+        list.innerHTML = '';
+        footer.style.display = 'none';
+        badge.style.display = 'none';
+        return;
+      }
+
+      empty.style.display = 'none';
+      footer.style.display = 'block';
+      badge.style.display = 'flex';
+      badge.textContent = cart.reduce((sum, c) => sum + c.qty, 0);
+
+      let sum = 0;
+      list.innerHTML = cart.map((item, i) => {
+        sum += item.price * item.qty;
+        return `
+          <div class="cart-item">
+            <div class="cart-item-img">
+              <i class="bi bi-image"></i>
+            </div>
+            <div class="cart-item-info">
+              <h6>${item.name}</h6>
+              <div class="cart-qty">
+                <button onclick="changeQty(${i}, -1)" title="Diminuisci">&minus;</button>
+                <span>${item.qty}</span>
+                <button onclick="changeQty(${i}, 1)" title="Aumenta">+</button>
+              </div>
+            </div>
+            <div class="cart-item-price">&euro; ${(item.price * item.qty).toFixed(2)}</div>
+            <button class="btn-remove" onclick="removeFromCart(${i})" title="Rimuovi"><i class="bi bi-x"></i></button>
+          </div>
+        `;
+      }).join('');
+
+      total.textContent = '&euro; ' + sum.toFixed(2);
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      localStorage.setItem('boutique_cart', JSON.stringify(cart));
+      renderCart();
+      updateBadges();
+    }
+
+    function changeQty(index, delta) {
+      cart[index].qty = Math.max(1, cart[index].qty + delta);
+      localStorage.setItem('boutique_cart', JSON.stringify(cart));
+      renderCart();
+      updateBadges();
+    }
+
+    function addToCart(name, price, qty = 1) {
+      const exists = cart.find(c => c.name === name);
+      if (exists) {
+        exists.qty += qty;
+      } else {
+        cart.push({ name, price, qty });
+      }
+      localStorage.setItem('boutique_cart', JSON.stringify(cart));
+      updateBadges();
+    }
+
+    // ── Shared ─────────────────────────────────
+    function closePanels() {
+      document.getElementById('favPanel').classList.remove('open');
+      document.getElementById('cartPanel').classList.remove('open');
+      document.getElementById('panelBackdrop').classList.remove('open');
+    }
+
+    function updateBadges() {
+      const favBadge = document.getElementById('favCount');
+      const cartBadge = document.getElementById('cartCount');
+
+      if (favorites.length > 0) {
+        favBadge.style.display = 'flex';
+        favBadge.textContent = favorites.length;
+      } else {
+        favBadge.style.display = 'none';
+      }
+
+      if (cart.length > 0) {
+        cartBadge.style.display = 'flex';
+        cartBadge.textContent = cart.reduce((sum, c) => sum + c.qty, 0);
+      } else {
+        cartBadge.style.display = 'none';
+      }
+    }
+
+    // Init badges on page load
+    updateBadges();
+
+    // Expose functions globally
+    window.toggleSearch = toggleSearch;
+    window.toggleFavorites = toggleFavorites;
+    window.toggleCart = toggleCart;
+    window.closePanels = closePanels;
+    window.removeFromCart = removeFromCart;
+    window.removeFav = removeFav;
+    window.addToCart = addToCart;
+    window.addToFavorites = addToFavorites;
+
+    // ── Scroll Reveal ──────────────────────────
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: .1 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // ── Back to Top + Nav Shrink ──────────────
+    const backBtn = document.getElementById('backToTop');
+    const nav = document.querySelector('.site-nav');
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      backBtn.classList.toggle('visible', y > 300);
+      nav.classList.toggle('scrolled', y > 60);
+    });
+
+    // ── Toast System ──────────────────────────
+    function showToast(message, icon = 'bi-check-circle') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = 'toast-msg';
+      toast.innerHTML = `<i class="bi ${icon}"></i> ${message}`;
+      container.appendChild(toast);
+      setTimeout(() => { if (toast.parentNode) toast.remove(); }, 2500);
+    }
+    window.showToast = showToast;
+
+    // ── Updated addToCart with toast ──────────
+    const _addToCart = addToCart;
+    window.addToCart = function(name, price, qty = 1) {
+      _addToCart(name, price, qty);
+      showToast('&#8226; ' + name + ' aggiunto al carrello');
+      renderCart();
+    };
+
+    // ── Updated addToFavorites with toast ─────
+    const _addToFav = addToFavorites;
+    window.addToFavorites = function(name, category) {
+      const exists = favorites.find(f => f.name === name);
+      _addToFav(name, category);
+      if (exists) {
+        showToast('&#8226; ' + name + ' rimosso dai preferiti', 'bi-heartbreak');
+      } else {
+        showToast('&#8226; ' + name + ' aggiunto ai preferiti', 'bi-heart');
+      }
+      renderFavorites();
+    };
+  </script>
+
+  <script>
+    if (localStorage.getItem('announcementDismissed')) {
+      document.getElementById('announcementBar').style.display = 'none';
+    }
+    window.dismissAnnouncement = function() {
+      localStorage.setItem('announcementDismissed', '1');
+      document.getElementById('announcementBar').style.display = 'none';
+    };
+  </script>
+
+  {% block extra_js %}{% endblock %}
+</body>
+</html>
