@@ -1,48 +1,38 @@
-# ── Python ──────────────────────────────────────────
+# Python
 __pycache__/
 *.py[cod]
-*$py.class
-*.so
+*.pyo
 *.egg-info/
 dist/
 build/
-*.egg
 
-# ── Virtual Environment ─────────────────────────────
+# Virtual environment
 venv/
-ENV/
-env/
+.virtualenvs/
 
-# ── Django ──────────────────────────────────────────
-*.log
-local_settings.py
+# Django
 db.sqlite3
-/media/
-/staticfiles/
-/static/
+*.sqlite3
+local_settings.py
 
-# ── IDE ─────────────────────────────────────────────
-.vscode/
+# Media / user uploads
+media/
+
+# Environment variables
+.env
+.env.local
+
+# IDE
 .idea/
+.vscode/
 *.swp
 *.swo
 *~
 .DS_Store
-
-# ── Environment Variables ───────────────────────────
-.env
-.env.local
-.env.production
-
-# ── OS ──────────────────────────────────────────────
 Thumbs.db
-desktop.ini
 
-# ── Compiled Translations (keep .po, ignore .mo) ───
+# Translations (compiled)
 *.mo
 
-# ── Python Packaging ────────────────────────────────
-*.whl
-*.tar.gz
-
-.gitignore
+# Logs
+*.log
