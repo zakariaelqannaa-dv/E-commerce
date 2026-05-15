@@ -23,7 +23,9 @@
 - **Full CRUD** — Create, read, update, and delete products
 - **Image uploads** — Upload product images with live preview
 - **Categories** — 15 luxury categories pre-loaded (Uomo, Donna, Accessori, Luxury, etc.)
-- **Admin panel** — Full Django admin with search, filters, and date hierarchy
+- **Code-gated admin** — Products can only be added/modified/deleted after entering access code `2005zakaria`
+- **Category management** — Dedicated page to create and browse categories (admin-only)
+- **Admin exit** — One-click button to leave admin mode from any page
 
 ### 🌍 Multi-Language Support
 - **5 languages** — Italian, English, French, Spanish, German
@@ -34,18 +36,23 @@
 - **Elegant design** — Warm neutral palette (cream, sand, linen, taupe, bark)
 - **Typography** — Cormorant Garamond (display) + DM Sans (body)
 - **Responsive** — Fully responsive with mobile navigation
-- **Animations** — Smooth transitions, hover effects, and focus states
+- **Animations** — Hero text fade-up, scroll-triggered section reveals, stats counter animation, card hover effects, image zoom, nav shrink on scroll
+- **Toast notifications** — Slide-in toast messages for cart/favorites/newsletter actions
+- **Back to top** — Floating button appears on scroll
 
 ### 🔍 Interactive Features
-- **Search overlay** — Full-screen search with blur backdrop
-- **Favorites panel** — Slide-in panel with localStorage persistence
-- **Shopping cart** — Cart panel with item management and total calculation
+- **Search overlay** — Full-screen search with blur backdrop + Enter key navigates to filtered product page
+- **Server-side search** — Global search queries product name, description, and category
+- **Favorites panel** — Slide-in panel with localStorage persistence + toast feedback
+- **Shopping cart** — Cart panel with quantity +/- adjust, subtotal per item, total calculation + toast feedback
 - **Badge counters** — Live counts on favorites and cart icons
+- **Quick-add cart** — Add-to-cart button overlays product card images on hover
 
 ### 📧 Contact Form
 - **Full form** — Name, surname, email, phone, subject, message
 - **Validation** — Required field validation with error messages
 - **Success feedback** — Confirmation message with 24-hour response promise
+- **Info cards** — Address, email, business hours, and social links displayed alongside the form
 
 ---
 
@@ -62,11 +69,13 @@ ecommerce/
 ├── myapp/
 │   ├── templates/
 │   │   └── myapp/
-│   │       ├── layout.html         ← Base template (navbar, footer, overlays)
-│   │       ├── home.html           ← Homepage with hero + featured products
-│   │       ├── form_prodotti.html  ← Product add/edit form
-│   │       ├── lista_prodotti.html ← Product catalog with search & filters
-│   │       └── contatti.html       ← Contact form page
+│   │       ├── layout.html              ← Base template (navbar, footer, overlays)
+│   │       ├── home.html                ← Homepage with hero + featured products
+│   │       ├── lista_prodotti.html      ← Product catalog with search & filters
+│   │       ├── dettaglio_prodotto.html  ← Product detail page (image, cart, related)
+│   │       ├── form_prodotti.html       ← Product add/edit form (code-gated)
+│   │       ├── gestione_categorie.html  ← Category management (admin-only)
+│   │       └── contatti.html            ← Contact form page
 │   ├── models.py               ← Categoria & Prodotto models with image support
 │   ├── views.py                ← All view logic (home, products, contact)
 │   ├── urls.py                 ← App URL routing
@@ -175,14 +184,17 @@ Open **http://127.0.0.1:8000** in your browser.
 
 ## 📄 Available Pages
 
-| URL | Description |
-|-----|-------------|
-| `/` | Homepage with hero section, stats, and featured products |
-| `/prodotti/` | Full product catalog with live search and category filter |
-| `/prodotti/nuovo/` | Add new product form with image upload |
-| `/prodotti/modifica/<id>/` | Edit existing product |
-| `/contatti/` | Contact form with validation |
-| `/admin/` | Django admin panel |
+| URL | Description | Access |
+|-----|-------------|--------|
+| `/` | Homepage with hero section, stats, and featured products | Public |
+| `/prodotti/` | Full product catalog with live search, category filter, and quick-add cart | Public |
+| `/prodotti/<id>/` | Product detail page with image zoom, quantity selector, add-to-cart, related products | Public |
+| `/prodotti/nuovo/` | Add new product form with image upload | Code `2005zakaria` |
+| `/prodotti/modifica/<id>/` | Edit existing product | Code `2005zakaria` |
+| `/categorie/` | Browse and create categories | Code `2005zakaria` |
+| `/esci-admin/` | Exit admin mode | Admin only |
+| `/contatti/` | Contact form with info cards and social links | Public |
+| `/admin/` | Django admin panel | Superuser |
 
 ---
 
@@ -328,6 +340,7 @@ python -c "import polib; [polib.pofile(f'locale/{lang}/LC_MESSAGES/django.po').s
 - Click the 🔍 search icon in the navbar
 - Full-screen overlay with blur backdrop
 - Auto-focuses input field
+- **Press Enter** to navigate to `/prodotti/?q=<query>` with server-side filtered results
 - Closes with Escape key or clicking outside
 
 ### Favorites Panel
@@ -335,21 +348,57 @@ python -c "import polib; [polib.pofile(f'locale/{lang}/LC_MESSAGES/django.po').s
 - Slide-in panel from the right
 - Items stored in `localStorage` (persists across sessions)
 - Red badge counter shows number of favorites
+- Toast notification on add/remove
 
 ### Shopping Cart
 - Click the 🛒 bag icon in the navbar
-- Slide-in panel with item list and total
+- Slide-in panel with item list, **quantity +/- adjust buttons**, subtotal per item, and total
 - Items stored in `localStorage`
+- Toast notification on add
 - Supports quantity management and removal
-- Red badge counter updates dynamically
+- Red badge counter shows total items (aggregates quantities)
+- **Quick-add**: hover product cards in catalog to show an add-to-cart button overlay
+
+### Product Detail Page
+- **Image zoom** — CSS scale effect on hover (crosshair cursor)
+- **Quantity selector** — +/- buttons before adding to cart
+- **Add to Cart** — Primary button with toast confirmation
+- **Add to Favorites** — Heart toggle button with toast
+- **Related products** — Up to 4 products from the same category
+
+### Admin Mode
+- Enter code `2005zakaria` on the **Add Product** page to unlock admin features
+- Admin sees: Add Product, Categories, Unlock/Edit/Delete buttons throughout the site
+- **Exit admin** button available on every admin-protected page and in the nav
+
+### Toast Notifications
+- Slide-in from top-right, auto-dismiss after 2.5 seconds
+- Shown for add-to-cart, add-to-favorites, newsletter signup
+
+### Scroll Animations
+- **Hero**: Staggered fade-up animation on page load (subtitle → title → CTA)
+- **Sections**: Fade-up + translateY on scroll via `IntersectionObserver`
+- **Stats**: Number counter animation (0 → target) when stats bar scrolls into view
+- **Nav**: Shrinks from 68px → 56px on scroll down
+
+### Back to Top
+- Floating circle button appears after scrolling 300px
+- Smooth-scrolls to top on click
+
+### Announcement Bar
+- Dismissible announcement bar with &times; button
+- Preference saved to `localStorage` (stays hidden across sessions)
 
 ### JavaScript API
 ```javascript
-// Add item to cart
+// Add item to cart (with toast notification)
 addToCart('Product Name', 29.99, 1);
 
-// Add item to favorites
-addToFavorites('Product Name', 'Category Name');
+// Add item to favorites (with toast notification)
+addToFavorites('Product Name', 'Category');
+
+// Show a custom toast
+showToast('Your message', 'bi-check-circle');
 
 // Open panels programmatically
 toggleSearch();
@@ -362,6 +411,15 @@ toggleCart();
 ## 📝 License
 
 This project is for educational and portfolio purposes.
+
+---
+
+## 📄 Interactive Features (Detailed)
+
+### Footer
+- **Newsletter signup** — Email input with toast confirmation
+- **Social icons** — Instagram, Facebook, Pinterest with hover effects
+- **Payment icons** — Visa, Mastercard, PayPal displayed in copyright bar
 
 ---
 
