@@ -57,3 +57,7 @@ htmlcov/
 dist/
 build/
 *.egg-info/
+pyvenv.cfg
+.gitignore
+.env
+.env.example
