@@ -7,3 +7,569 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+msgid "30 giorni per restituire qualsiasi prodotto, senza domande."
+msgstr ""
+
+msgid "Aggiungi al carrello"
+msgstr ""
+
+msgid "Aggiungi categoria"
+msgstr ""
+
+msgid "Aggiungi il primo prodotto"
+msgstr ""
+
+msgid ""
+"Aggiungi un nuovo prodotto di bellezza naturale al tuo catalogo con "
+"dettagli, categoria, prezzo, stock e immagine."
+msgstr ""
+
+msgid "Annulla"
+msgstr ""
+
+msgid "Anteprima"
+msgstr ""
+
+msgid "Applica"
+msgstr ""
+
+msgid "Assistenza 24h"
+msgstr ""
+
+msgid "Best Seller"
+msgstr ""
+
+msgid "Breve descrizione della categoria..."
+msgstr ""
+
+msgid "Carica un'immagine chiara e ben illuminata."
+msgstr ""
+
+msgid "Carrello"
+msgstr ""
+
+msgid "Catalogo Prodotti"
+msgstr ""
+
+msgid "Catalogo vuoto"
+msgstr ""
+
+msgid "Categoria"
+msgstr ""
+
+msgid "Categoria \"%(nome)s\" creata."
+msgstr ""
+
+msgid "Categoria \"%(nome)s\" già esistente."
+msgstr ""
+
+msgid "Categoria non valida."
+msgstr ""
+
+msgid "Categorie"
+msgstr ""
+
+msgid "Categorie:"
+msgstr ""
+
+msgid "Cerca"
+msgstr ""
+
+msgid "Cerca per nome..."
+msgstr ""
+
+msgid "Cerca prodotti, categorie..."
+msgstr ""
+
+msgid "Cerca prodotto"
+msgstr ""
+
+msgid "Chi siamo"
+msgstr ""
+
+msgid "Chiudi"
+msgstr ""
+
+msgid "Cognome"
+msgstr ""
+
+msgid "Confermi di voler eliminare questo prodotto?"
+msgstr ""
+
+msgid "Consegna in 1-3 giorni lavorativi su tutto il territorio nazionale."
+msgstr ""
+
+msgid "Contattaci"
+msgstr ""
+
+msgid "Contattaci."
+msgstr ""
+
+msgid "Contatti"
+msgstr ""
+
+msgid "Cookie Policy"
+msgstr ""
+
+msgid "Crea Categoria"
+msgstr ""
+
+msgid ""
+"Crea categorie come Olio Viso, Gel Idratante, Crema Corpo, o Siero per "
+"organizzare al meglio i tuoi prodotti."
+msgstr ""
+
+msgid "Data inserimento"
+msgstr ""
+
+msgid "Delicati"
+msgstr ""
+
+msgid "Descrizione"
+msgstr ""
+
+msgid "Descrizione (Deutsch)"
+msgstr ""
+
+msgid "Descrizione (English)"
+msgstr ""
+
+msgid "Descrizione (Español)"
+msgstr ""
+
+msgid "Descrizione (Français)"
+msgstr ""
+
+msgid "Descrizione (Italiano)"
+msgstr ""
+
+msgid "Descrizione (opzionale)"
+msgstr ""
+
+msgid "Dettagli commerciali"
+msgstr ""
+
+msgid "Di cosa vuoi parlarci?"
+msgstr ""
+
+msgid "Discover the products"
+msgstr "Scopri i prodotti"
+
+msgid "Disponibile"
+msgstr ""
+
+msgid "E-Commerce"
+msgstr ""
+
+msgid "Elenco prodotti"
+msgstr ""
+
+msgid "Elimina"
+msgstr ""
+
+msgid "Email"
+msgstr ""
+
+msgid "Errore durante il salvataggio. Riprova più tardi."
+msgstr ""
+
+msgid "Esaurito"
+msgstr ""
+
+msgid ""
+"Esplora la nostra collezione curata di prodotti di bellezza naturali, "
+"pensati per una pelle sana e radiosa."
+msgstr ""
+
+msgid "Filtra categoria"
+msgstr ""
+
+msgid "Formato immagine non supportato. Usa JPG, PNG, GIF o WEBP."
+msgstr ""
+
+msgid "Gestione"
+msgstr ""
+
+msgid "Gestione Categorie"
+msgstr ""
+
+msgid ""
+"Grazie %(nome)s, il tuo messaggio è stato inviato. Ti risponderemo entro 24 "
+"ore."
+msgstr ""
+
+msgid "Hai bisogno di assistenza?"
+msgstr ""
+
+msgid ""
+"Hai domande, suggerimenti o vuoi saperne di più sui nostri prodotti "
+"naturali? Il nostro team è qui per te."
+msgstr ""
+
+msgid "Home"
+msgstr ""
+
+msgid "I campi contrassegnati con"
+msgstr ""
+
+msgid "Il nome della categoria è obbligatorio."
+msgstr ""
+
+msgid "Il nostro team ti risponderà entro 24 ore."
+msgstr ""
+
+msgid "Il prezzo deve essere un numero positivo."
+msgstr ""
+
+msgid "Il prezzo deve essere un numero valido."
+msgstr ""
+
+msgid "Il tuo cognome"
+msgstr ""
+
+msgid "Il tuo nome"
+msgstr ""
+
+msgid "Immagine attuale:"
+msgstr ""
+
+msgid "Immagine prodotto"
+msgstr ""
+
+msgid "Indirizzo"
+msgstr ""
+
+msgid "Info"
+msgstr ""
+
+msgid "Informazioni"
+msgstr ""
+
+msgid "Informazioni principali"
+msgstr ""
+
+msgid "Invia messaggio"
+msgstr ""
+
+msgid "Inviaci un messaggio"
+msgstr ""
+
+msgid "La quantità deve essere un numero positivo."
+msgstr ""
+
+msgid "La quantità deve essere un numero valido."
+msgstr ""
+
+msgid "La tua email"
+msgstr ""
+
+msgid "Language"
+msgstr ""
+
+msgid "Lun–Ven"
+msgstr ""
+
+msgid "Messaggio"
+msgstr ""
+
+msgid "Modifica"
+msgstr ""
+
+msgid "Modifica Prodotto"
+msgstr ""
+
+msgid ""
+"Modifica i dettagli del prodotto nel tuo catalogo di bellezza naturale."
+msgstr ""
+
+msgid "Natura e bellezza — Spring 2026"
+msgstr "Natura e bellezza — Primavera 2026"
+
+msgid "Naturale"
+msgstr "Naturale"
+
+msgid "Naturali"
+msgstr ""
+
+msgid "Negozio"
+msgstr ""
+
+msgid "Nessun risultato"
+msgstr ""
+
+msgid "Nessuna categoria disponibile"
+msgstr ""
+
+msgid "Nessuna categoria. Creane una qui a fianco."
+msgstr ""
+
+msgid "Newsletter"
+msgstr ""
+
+msgid "Nome"
+msgstr ""
+
+msgid "Nome categoria"
+msgstr ""
+
+msgid "Nome prodotto (Deutsch)"
+msgstr ""
+
+msgid "Nome prodotto (English)"
+msgstr ""
+
+msgid "Nome prodotto (Español)"
+msgstr ""
+
+msgid "Nome prodotto (Français)"
+msgstr ""
+
+msgid "Nome prodotto (Italiano)"
+msgstr ""
+
+msgid "Non autorizzato."
+msgstr ""
+
+msgid "Non ci sono ancora prodotti nel catalogo."
+msgstr ""
+
+msgid "Nuova"
+msgstr ""
+
+msgid "Nuova Categoria"
+msgstr ""
+
+msgid "Nuovi Arrivi"
+msgstr ""
+
+msgid "Nuovo Prodotto"
+msgstr ""
+
+msgid "Nuovo prodotto"
+msgstr ""
+
+msgid "Offerte"
+msgstr ""
+
+msgid "Oggetto"
+msgstr ""
+
+msgid ""
+"Ogni prodotto è selezionato e verificato prima di essere messo in vendita."
+msgstr ""
+
+msgid "Orari"
+msgstr ""
+
+msgid "Ordini"
+msgstr ""
+
+msgid "Pagina Iniziale"
+msgstr ""
+
+msgid "Potrebbe interessarti"
+msgstr ""
+
+msgid "Preferiti"
+msgstr ""
+
+msgid "Prezzo (EUR)"
+msgstr ""
+
+msgid "Privacy Policy"
+msgstr ""
+
+msgid "Prodotti"
+msgstr ""
+
+msgid "Prodotti correlati"
+msgstr ""
+
+msgid ""
+"Prodotti di bellezza naturali, pensati per esaltare la tua essenza. Ogni "
+"ingrediente è scelto con cura, per la tua pelle e per il pianeta."
+msgstr ""
+"Prodotti di bellezza naturali, pensati per esaltare la tua essenza. Ogni "
+"ingrediente è scelto con cura, per la tua pelle e per il pianeta."
+
+msgid "Prodotti:"
+msgstr ""
+
+msgid "Prodotto"
+msgstr ""
+
+msgid "Prodotto non trovato."
+msgstr ""
+
+msgid "Prova a modificare i filtri di ricerca."
+msgstr ""
+
+msgid "Qualità garantita"
+msgstr ""
+
+msgid "Quantità"
+msgstr ""
+
+msgid "Quantità disponibile"
+msgstr ""
+
+msgid "Resi"
+msgstr ""
+
+msgid "Resi gratuiti"
+msgstr ""
+
+msgid "Risposta entro 24h"
+msgstr ""
+
+msgid "Sab"
+msgstr ""
+
+msgid "Salva categoria"
+msgstr ""
+
+msgid "Salva modifiche"
+msgstr ""
+
+msgid "Salva prodotto"
+msgstr ""
+
+msgid "Scegli la categoria giusta per il filtro."
+msgstr ""
+
+msgid ""
+"Scopri gli ultimi prodotti naturali entrati nel nostro catalogo, pensati per"
+" la tua skincare routine quotidiana."
+msgstr ""
+
+msgid "Scorri"
+msgstr "Scorri"
+
+msgid "Scrivi il tuo messaggio qui..."
+msgstr ""
+
+msgid "Scrivi una descrizione utile per la skincare."
+msgstr ""
+
+msgid "Scrivici"
+msgstr ""
+
+msgid "Seguici"
+msgstr ""
+
+msgid "Seguici sui social per scoprire le ultime novità."
+msgstr ""
+
+msgid "Seleziona una categoria"
+msgstr ""
+
+msgid "Selezione"
+msgstr ""
+
+msgid "Sicuri"
+msgstr ""
+
+msgid "Spedizione"
+msgstr ""
+
+msgid "Spedizione rapida"
+msgstr ""
+
+msgid "Spedizioni"
+msgstr ""
+
+msgid "Suggerimenti"
+msgstr ""
+
+msgid "Telefono"
+msgstr ""
+
+msgid "Torna ai prodotti"
+msgstr ""
+
+msgid "Torna alla home"
+msgstr ""
+
+msgid "Torna alla lista"
+msgstr ""
+
+msgid "Torna su"
+msgstr ""
+
+msgid "Tutte le categorie"
+msgstr ""
+
+msgid "Tutti i campi obbligatori devono essere compilati."
+msgstr ""
+
+msgid "Tutti i diritti riservati."
+msgstr ""
+
+msgid "Tutti i prodotti"
+msgstr ""
+
+msgid "Ultimi arrivi"
+msgstr ""
+
+msgid "Ultimi pezzi"
+msgstr ""
+
+msgid "Una selezione curata di prodotti d'eccellenza."
+msgstr ""
+
+msgid "Usa un nome chiaro e descrittivo."
+msgstr ""
+
+msgid "Vedi dettagli"
+msgstr ""
+
+msgid "Vedi tutti"
+msgstr ""
+
+msgid "Vedi tutti i prodotti"
+msgstr ""
+
+msgid "aggiornato."
+msgstr ""
+
+msgid "aggiunto con successo."
+msgstr ""
+
+msgid "articoli"
+msgstr ""
+
+msgid "beauty"
+msgstr "bellezza"
+
+msgid "eliminati"
+msgstr ""
+
+msgid "eliminato"
+msgstr ""
+
+msgid "eliminato."
+msgstr ""
+
+msgid "es. Cura viso"
+msgstr ""
+
+msgid "es. Olio Viso"
+msgstr ""
+
+msgid "for your skin."
+msgstr "per la tua pelle."
+
+msgid "nome@esempio.it"
+msgstr ""
+
+msgid "prodotti"
+msgstr ""
+
+msgid "prodotto"
+msgstr ""
+
+msgid "qty:"
+msgstr ""
+
+msgid "sono obbligatori."
+msgstr ""

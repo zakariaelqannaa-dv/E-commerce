@@ -444,3 +444,306 @@ msgstr "Calidad garantizada"
 
 msgid "qty:"
 msgstr "cant:"
+
+msgid "Aggiungi al carrello"
+msgstr ""
+
+msgid "Aggiungi categoria"
+msgstr ""
+
+msgid ""
+"Aggiungi un nuovo prodotto di bellezza naturale al tuo catalogo con "
+"dettagli, categoria, prezzo, stock e immagine."
+msgstr ""
+
+msgid "Applica"
+msgstr ""
+
+msgid "Assistenza 24h"
+msgstr ""
+
+msgid "Breve descrizione della categoria..."
+msgstr ""
+
+msgid "Carica un'immagine chiara e ben illuminata."
+msgstr ""
+
+msgid "Categoria \"%(nome)s\" creata."
+msgstr ""
+
+msgid "Categoria \"%(nome)s\" già esistente."
+msgstr ""
+
+msgid "Categoria non valida."
+msgstr ""
+
+msgid "Categorie:"
+msgstr ""
+
+msgid "Cerca per nome..."
+msgstr ""
+
+msgid "Cerca prodotti, categorie..."
+msgstr ""
+
+msgid "Cerca prodotto"
+msgstr ""
+
+msgid "Chiudi"
+msgstr ""
+
+msgid "Crea Categoria"
+msgstr ""
+
+msgid ""
+"Crea categorie come Olio Viso, Gel Idratante, Crema Corpo, o Siero per "
+"organizzare al meglio i tuoi prodotti."
+msgstr ""
+
+msgid "Data inserimento"
+msgstr ""
+
+msgid "Delicati"
+msgstr ""
+
+msgid "Descrizione (Deutsch)"
+msgstr ""
+
+msgid "Descrizione (English)"
+msgstr ""
+
+msgid "Descrizione (Español)"
+msgstr ""
+
+msgid "Descrizione (Français)"
+msgstr ""
+
+msgid "Descrizione (Italiano)"
+msgstr ""
+
+msgid "Descrizione (opzionale)"
+msgstr ""
+
+msgid "Discover the products"
+msgstr "Descubrir los productos"
+
+msgid "Disponibile"
+msgstr ""
+
+msgid "Errore durante il salvataggio. Riprova più tardi."
+msgstr ""
+
+msgid "Esaurito"
+msgstr ""
+
+msgid ""
+"Esplora la nostra collezione curata di prodotti di bellezza naturali, "
+"pensati per una pelle sana e radiosa."
+msgstr ""
+
+msgid "Filtra categoria"
+msgstr ""
+
+msgid "Formato immagine non supportato. Usa JPG, PNG, GIF o WEBP."
+msgstr ""
+
+msgid "Gestione Categorie"
+msgstr ""
+
+msgid ""
+"Hai domande, suggerimenti o vuoi saperne di più sui nostri prodotti "
+"naturali? Il nostro team è qui per te."
+msgstr ""
+
+msgid "Il nome della categoria è obbligatorio."
+msgstr ""
+
+msgid "Il prezzo deve essere un numero positivo."
+msgstr ""
+
+msgid "Il prezzo deve essere un numero valido."
+msgstr ""
+
+msgid "Indirizzo"
+msgstr ""
+
+msgid "Info"
+msgstr ""
+
+msgid "Inviaci un messaggio"
+msgstr ""
+
+msgid "La quantità deve essere un numero positivo."
+msgstr ""
+
+msgid "La quantità deve essere un numero valido."
+msgstr ""
+
+msgid "La tua email"
+msgstr ""
+
+msgid "Lun–Ven"
+msgstr ""
+
+msgid "Modifica Prodotto"
+msgstr ""
+
+msgid ""
+"Modifica i dettagli del prodotto nel tuo catalogo di bellezza naturale."
+msgstr ""
+
+msgid "Natura e bellezza — Spring 2026"
+msgstr "Natura y belleza — Primavera 2026"
+
+msgid "Naturale"
+msgstr "Natural"
+
+msgid "Naturali"
+msgstr ""
+
+msgid "Nessun risultato"
+msgstr ""
+
+msgid "Nessuna categoria. Creane una qui a fianco."
+msgstr ""
+
+msgid "Newsletter"
+msgstr ""
+
+msgid "Nome categoria"
+msgstr ""
+
+msgid "Nome prodotto (Deutsch)"
+msgstr ""
+
+msgid "Nome prodotto (English)"
+msgstr ""
+
+msgid "Nome prodotto (Español)"
+msgstr ""
+
+msgid "Nome prodotto (Français)"
+msgstr ""
+
+msgid "Nome prodotto (Italiano)"
+msgstr ""
+
+msgid "Non autorizzato."
+msgstr ""
+
+msgid "Non ci sono ancora prodotti nel catalogo."
+msgstr ""
+
+msgid "Nuova"
+msgstr ""
+
+msgid "Nuova Categoria"
+msgstr ""
+
+msgid "Nuovo Prodotto"
+msgstr ""
+
+msgid "Orari"
+msgstr ""
+
+msgid "Potrebbe interessarti"
+msgstr ""
+
+msgid "Prodotti correlati"
+msgstr ""
+
+msgid ""
+"Prodotti di bellezza naturali, pensati per esaltare la tua essenza. Ogni "
+"ingrediente è scelto con cura, per la tua pelle e per il pianeta."
+msgstr ""
+"Productos de belleza naturales diseñados para realzar tu esencia. Cada "
+"ingrediente está cuidadosamente seleccionado, para tu piel y el planeta."
+
+msgid "Prodotti:"
+msgstr ""
+
+msgid "Prodotto non trovato."
+msgstr ""
+
+msgid "Prova a modificare i filtri di ricerca."
+msgstr ""
+
+msgid "Quantità disponibile"
+msgstr ""
+
+msgid "Risposta entro 24h"
+msgstr ""
+
+msgid "Sab"
+msgstr ""
+
+msgid "Salva categoria"
+msgstr ""
+
+msgid "Scegli la categoria giusta per il filtro."
+msgstr ""
+
+msgid ""
+"Scopri gli ultimi prodotti naturali entrati nel nostro catalogo, pensati per"
+" la tua skincare routine quotidiana."
+msgstr ""
+
+msgid "Scorri"
+msgstr "Desplazar"
+
+msgid "Scrivi una descrizione utile per la skincare."
+msgstr ""
+
+msgid "Seguici"
+msgstr ""
+
+msgid "Seguici sui social per scoprire le ultime novità."
+msgstr ""
+
+msgid "Sicuri"
+msgstr ""
+
+msgid "Suggerimenti"
+msgstr ""
+
+msgid "Telefono"
+msgstr ""
+
+msgid "Torna ai prodotti"
+msgstr ""
+
+msgid "Torna su"
+msgstr ""
+
+msgid "Ultimi pezzi"
+msgstr ""
+
+msgid "Una selezione curata di prodotti d'eccellenza."
+msgstr ""
+
+msgid "Usa un nome chiaro e descrittivo."
+msgstr ""
+
+msgid "Vedi dettagli"
+msgstr ""
+
+msgid "articoli"
+msgstr ""
+
+msgid "beauty"
+msgstr "belleza"
+
+msgid "eliminato."
+msgstr ""
+
+msgid "es. Cura viso"
+msgstr ""
+
+msgid "es. Olio Viso"
+msgstr ""
+
+msgid "for your skin."
+msgstr "para tu piel."
+
+msgid "nome@esempio.it"
+msgstr ""

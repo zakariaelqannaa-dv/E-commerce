@@ -1,213 +1,666 @@
 {% extends 'myapp/layout.html' %}
 {% load i18n %}
-{% block title %}{% trans "Inserimento Prodotto" %}{% endblock %}
+{% load product_i18n %}
+{% block title %}{% if prodotto %}{% trans "Modifica Prodotto" %}{% else %}{% trans "Nuovo Prodotto" %}{% endif %} — Boutique{% endblock %}
 
 {% block body %}
 
-{% if show_code_form %}
-
-<!-- Code Entry -->
-<div class="page-header">
-  <div class="container text-center">
-    <h1>{% trans "Accesso riservato" %}</h1>
-    <p>{% trans "Inserisci il codice di accesso per aggiungere o modificare prodotti." %}</p>
-  </div>
-</div>
-<div class="container pb-6" style="padding-bottom:5rem;">
-  <div class="row justify-content-center">
-    <div class="col-lg-6 col-xl-5">
-      <div class="card-elegant text-center">
-        <form method="post" style="max-width:280px; margin:0 auto;">
-          {% csrf_token %}
-          <input type="text" name="access_code" class="form-control text-center" placeholder="{% trans "Codice di accesso" %}" required autocomplete="off" style="margin-bottom:1rem;">
-          <button type="submit" class="btn btn-primary w-100">{% trans "Accedi" %}</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-{% else %}
-
-<!-- Page Header -->
-<div class="page-header">
+<!-- Entry Hero -->
+<section class="entry-hero">
   <div class="container">
-    <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
-      <div>
-        <nav aria-label="breadcrumb" style="margin-bottom:.6rem;">
-          <ol class="breadcrumb" style="font-size:.7rem; letter-spacing:.08em; text-transform:uppercase; margin:0; gap:.4rem;">
-            <li class="breadcrumb-item"><a href="{% url 'home' %}" style="color:var(--taupe); text-decoration:none;">{% trans "Pagina Iniziale" %}</a></li>
-            <li class="breadcrumb-item"><a href="{% url 'lista_prodotti' %}" style="color:var(--taupe); text-decoration:none;">{% trans "Prodotti" %}</a></li>
-            <li class="breadcrumb-item active" style="color:var(--ink);">{% trans "Nuovo prodotto" %}</li>
-          </ol>
-        </nav>
-        <h1>{% trans "Inserimento Prodotto" %}</h1>
-        <p>{% trans "Compila i campi per aggiungere un nuovo articolo al catalogo" %}</p>
-      </div>
-      <a href="{% url 'esci_admin' %}"
-         style="font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:var(--taupe); text-decoration:none; white-space:nowrap; transition:color .2s; padding-top:.3rem;"
-         onmouseover="this.style.color='var(--danger)'"
-         onmouseout="this.style.color='var(--taupe)'"
-         title="{% trans 'Esci da modalità amministratore' %}">
-        <i class="bi bi-unlock" style="margin-right:.3rem;"></i> {% trans "Esci" %}
-      </a>
-    </div>
+    <p class="entry-hero__breadcrumb">
+      <a href="{% url 'home' %}">{% trans "Home" %}</a> /
+      <a href="{% url 'lista_prodotti' %}">{% trans "Prodotti" %}</a> /
+      {% if prodotto %}{% trans "Modifica" %}{% else %}{% trans "Nuovo prodotto" %}{% endif %}
+    </p>
+    <h1 class="entry-hero__title">
+      {% if prodotto %}{% trans "Modifica Prodotto" %}{% else %}{% trans "Nuovo Prodotto" %}{% endif %}
+    </h1>
+    <p class="entry-hero__text">
+      {% if prodotto %}
+        {% trans "Modifica i dettagli del prodotto nel tuo catalogo di bellezza naturale." %}
+      {% else %}
+        {% trans "Aggiungi un nuovo prodotto di bellezza naturale al tuo catalogo con dettagli, categoria, prezzo, stock e immagine." %}
+      {% endif %}
+    </p>
   </div>
-</div>
+</section>
 
-<!-- Form -->
-<div class="container pb-6" style="padding-bottom:5rem;">
-  <div class="row justify-content-center">
-    <div class="col-lg-8 col-xl-7">
-      <div class="card-elegant">
-
+<!-- Entry Form Section -->
+<section class="entry-section">
+  <div class="container">
+    <div class="entry-layout">
+      <!-- Form Card -->
+      <div class="entry-form-card">
         <form method="post" novalidate enctype="multipart/form-data">
           {% csrf_token %}
 
-          <!-- Sezione: Informazioni principali -->
-          <div style="margin-bottom:2rem;">
-            <p style="font-size:.68rem; letter-spacing:.16em; text-transform:uppercase; color:var(--taupe); margin-bottom:1.5rem; padding-bottom:.8rem; border-bottom:1px solid var(--sand);">{% trans "Informazioni principali" %}</p>
+          <!-- Language Tabs -->
+          <div class="lang-tabs">
+            <button type="button" class="lang-tab active" data-lang="en">EN</button>
+            <button type="button" class="lang-tab" data-lang="fr">FR</button>
+            <button type="button" class="lang-tab" data-lang="it">IT</button>
+            <button type="button" class="lang-tab" data-lang="es">ES</button>
+            <button type="button" class="lang-tab" data-lang="de">DE</button>
+          </div>
 
-            <!-- Nome -->
-            <div class="mb-4">
-              <label class="form-label" for="nome">{% trans "Nome prodotto" %} <span style="color:var(--danger);">*</span></label>
-              <input type="text"
-                     class="form-control"
-                     id="nome"
-                     name="nome"
-                     placeholder="{% trans "es. Crema idratante viso" %}"
-                     value="{% if prodotto %}{{ prodotto.nome }}{% endif %}"
-                     required
-                     autocomplete="off">
+          <p class="entry-form-section-title">{% trans "Informazioni principali" %}</p>
+
+          <!-- English -->
+          <div class="lang-panel" data-lang="en">
+            <div class="entry-form-group">
+              <label for="nome_en">{% trans "Nome prodotto (English)" %} <span>*</span></label>
+              <input type="text" id="nome_en" name="nome_en"
+                     placeholder="Natural facial oil for nourishing and glowing skin."
+                     value="{% if prodotto %}{{ prodotto.nome_en }}{% endif %}" autocomplete="off">
             </div>
-
-            <!-- Descrizione -->
-            <div class="mb-4">
-              <label class="form-label" for="descrizione">{% trans "Descrizione" %} <span style="color:var(--danger);">*</span></label>
-              <textarea class="form-control"
-                        id="descrizione"
-                        name="descrizione"
-                        rows="4"
-                        placeholder="{% trans "Descrivi il prodotto in modo chiaro e dettagliato..." %}"
-                        required>{% if prodotto %}{{ prodotto.descrizione }}{% endif %}</textarea>
+            <div class="entry-form-group">
+              <label for="descrizione_en">{% trans "Descrizione (English)" %}</label>
+              <textarea id="descrizione_en" name="descrizione_en"
+                        placeholder="Natural facial oil for nourishing and glowing skin.">{% if prodotto %}{{ prodotto.descrizione_en }}{% endif %}</textarea>
             </div>
           </div>
 
-          <!-- Sezione: Dettagli commerciali -->
-          <div style="margin-bottom:2rem;">
-            <p style="font-size:.68rem; letter-spacing:.16em; text-transform:uppercase; color:var(--taupe); margin-bottom:1.5rem; padding-bottom:.8rem; border-bottom:1px solid var(--sand);">{% trans "Dettagli commerciali" %}</p>
+          <!-- French -->
+          <div class="lang-panel" data-lang="fr" style="display:none;">
+            <div class="entry-form-group">
+              <label for="nome_fr">{% trans "Nome prodotto (Français)" %}</label>
+              <input type="text" id="nome_fr" name="nome_fr"
+                     placeholder="Huile naturelle pour le visage, conçue pour nourrir la peau et renforcer son éclat."
+                     value="{% if prodotto %}{{ prodotto.nome_fr }}{% endif %}" autocomplete="off">
+            </div>
+            <div class="entry-form-group">
+              <label for="descrizione_fr">{% trans "Descrizione (Français)" %}</label>
+              <textarea id="descrizione_fr" name="descrizione_fr"
+                        placeholder="Huile naturelle pour le visage, conçue pour nourrir la peau et renforcer son éclat.">{% if prodotto %}{{ prodotto.descrizione_fr }}{% endif %}</textarea>
+            </div>
+          </div>
 
-            <div class="row g-3 mb-4">
-              <!-- Quantita -->
-              <div class="col-sm-6">
-                <label class="form-label" for="quantita">{% trans "Quantità" %} <span style="color:var(--danger);">*</span></label>
+          <!-- Italian -->
+          <div class="lang-panel" data-lang="it" style="display:none;">
+            <div class="entry-form-group">
+              <label for="nome_it">{% trans "Nome prodotto (Italiano)" %}</label>
+              <input type="text" id="nome_it" name="nome_it"
+                     placeholder="Olio naturale per il viso, pensato per nutrire la pelle e donarle luminosità."
+                     value="{% if prodotto %}{{ prodotto.nome_it }}{% endif %}" autocomplete="off">
+            </div>
+            <div class="entry-form-group">
+              <label for="descrizione_it">{% trans "Descrizione (Italiano)" %}</label>
+              <textarea id="descrizione_it" name="descrizione_it"
+                        placeholder="Olio naturale per il viso, pensato per nutrire la pelle e donarle luminosità.">{% if prodotto %}{{ prodotto.descrizione_it }}{% endif %}</textarea>
+            </div>
+          </div>
+
+          <!-- Spanish -->
+          <div class="lang-panel" data-lang="es" style="display:none;">
+            <div class="entry-form-group">
+              <label for="nome_es">{% trans "Nome prodotto (Español)" %}</label>
+              <input type="text" id="nome_es" name="nome_es"
+                     placeholder="Aceite facial natural para nutrir y dar luminosidad a la piel."
+                     value="{% if prodotto %}{{ prodotto.nome_es }}{% endif %}" autocomplete="off">
+            </div>
+            <div class="entry-form-group">
+              <label for="descrizione_es">{% trans "Descrizione (Español)" %}</label>
+              <textarea id="descrizione_es" name="descrizione_es"
+                        placeholder="Aceite facial natural para nutrir y dar luminosidad a la piel.">{% if prodotto %}{{ prodotto.descrizione_es }}{% endif %}</textarea>
+            </div>
+          </div>
+
+          <!-- German -->
+          <div class="lang-panel" data-lang="de" style="display:none;">
+            <div class="entry-form-group">
+              <label for="nome_de">{% trans "Nome prodotto (Deutsch)" %}</label>
+              <input type="text" id="nome_de" name="nome_de"
+                     placeholder="Natürliches Gesichtsöl zur Pflege und für strahlende Haut."
+                     value="{% if prodotto %}{{ prodotto.nome_de }}{% endif %}" autocomplete="off">
+            </div>
+            <div class="entry-form-group">
+              <label for="descrizione_de">{% trans "Descrizione (Deutsch)" %}</label>
+              <textarea id="descrizione_de" name="descrizione_de"
+                        placeholder="Natürliches Gesichtsöl zur Pflege und für strahlende Haut.">{% if prodotto %}{{ prodotto.descrizione_de }}{% endif %}</textarea>
+            </div>
+          </div>
+
+          <!-- Fallback fields (hidden, auto-filled) -->
+          <input type="hidden" name="nome" id="nome" value="{% if prodotto %}{{ prodotto.nome }}{% endif %}">
+          <input type="hidden" name="descrizione" id="descrizione" value="{% if prodotto %}{{ prodotto.descrizione }}{% endif %}">
+
+          <p class="entry-form-section-title" style="margin-top:1.5rem;">{% trans "Dettagli commerciali" %}</p>
+
+          <!-- Quantità + Prezzo -->
+          <div class="entry-form-row">
+            <div class="entry-form-group">
+              <label for="quantita">{% trans "Quantità" %} <span>*</span></label>
+              <input type="number"
+                     id="quantita"
+                     name="quantita"
+                     placeholder="0"
+                     min="0"
+                     value="{% if prodotto %}{{ prodotto.quantita }}{% endif %}"
+                     required>
+            </div>
+            <div class="entry-form-group">
+              <label for="prezzo">{% trans "Prezzo (EUR)" %} <span>*</span></label>
+              <div style="position:relative;">
+                <span style="position:absolute; left:1rem; top:50%; transform:translateY(-50%); color:#9b8064; font-family:var(--ff-display); font-size:.95rem; pointer-events:none;">&euro;</span>
                 <input type="number"
-                       class="form-control"
-                       id="quantita"
-                       name="quantita"
-                       placeholder="0"
+                       id="prezzo"
+                       name="prezzo"
+                       step="0.01"
                        min="0"
-                       value="{% if prodotto %}{{ prodotto.quantita }}{% endif %}"
+                       placeholder="0.00"
+                       value="{% if prodotto %}{{ prodotto.prezzo }}{% endif %}"
+                       style="padding-left:2.2rem;"
                        required>
               </div>
-
-              <!-- Prezzo -->
-              <div class="col-sm-6">
-                <label class="form-label" for="prezzo">{% trans "Prezzo (EUR)" %} <span style="color:var(--danger);">*</span></label>
-                <div style="position:relative;">
-                  <span style="position:absolute; left:.9rem; top:50%; transform:translateY(-50%); color:var(--taupe); font-family:var(--ff-display); font-size:.95rem;">&euro;</span>
-                  <input type="number"
-                         class="form-control"
-                         id="prezzo"
-                         name="prezzo"
-                         step="0.01"
-                         min="0"
-                         placeholder="0.00"
-                         value="{% if prodotto %}{{ prodotto.prezzo }}{% endif %}"
-                         style="padding-left:2rem;"
-                         required>
-                </div>
-              </div>
             </div>
+          </div>
 
-            <!-- Categoria -->
-            <div class="mb-4">
-              <label class="form-label" for="categoria">{% trans "Categoria" %} <span style="color:var(--danger);">*</span></label>
-                <select name="categoria" id="categoria" class="form-select" required>
-                  <option value="" disabled {% if not prodotto or not prodotto.categoria %}selected{% endif %}>{% trans "Seleziona una categoria" %}</option>
-                  {% for cat in categorie %}
-                    <option value="{{ cat.id }}" {% if prodotto and prodotto.categoria.id == cat.id %}selected{% endif %}>{{ cat.nome }}</option>
-                  {% empty %}
+          <!-- Categoria -->
+          <div class="entry-form-group">
+            <label for="categoria">{% trans "Categoria" %} <span>*</span></label>
+            <div class="entry-category-inline">
+              <select name="categoria" id="categoria" required>
+                <option value="" disabled {% if not prodotto or not prodotto.categoria %}selected{% endif %}>{% trans "Seleziona una categoria" %}</option>
+                {% for cat in categorie %}
+                  <option value="{{ cat.id }}" {% if prodotto and prodotto.categoria.id == cat.id %}selected{% endif %}>{{ cat.nome }}</option>
+                {% empty %}
                   <option value="" disabled>{% trans "Nessuna categoria disponibile" %}</option>
                 {% endfor %}
               </select>
-            </div>
-
-            <!-- Immagine -->
-            <div class="mb-4">
-              <label class="form-label" for="immagine">{% trans "Immagine prodotto" %}</label>
-              <input type="file"
-                     class="form-control"
-                     id="immagine"
-                     name="immagine"
-                     accept="image/*"
-                     onchange="previewImage(event)">
-              <div id="imagePreview" style="margin-top:1rem; display:none;">
-                <img id="preview" src="" alt="{% trans "Anteprima" %}" style="max-width:200px; max-height:200px; object-fit:cover; border-radius:8px; border:1px solid var(--linen);">
-              </div>
-              {% if prodotto and prodotto.immagine %}
-              <div style="margin-top:1rem;">
-                <p style="font-size:.73rem; color:var(--taupe); margin-bottom:.5rem;">{% trans "Immagine attuale:" %}</p>
-                <img src="{{ prodotto.immagine.url }}" alt="{{ prodotto.nome }}" style="max-width:200px; max-height:200px; object-fit:cover; border-radius:8px; border:1px solid var(--linen);">
-              </div>
-              {% endif %}
+              <button type="button" class="entry-small-btn" data-bs-toggle="modal" data-bs-target="#categoryModal">
+                + {% trans "Nuova" %}
+              </button>
             </div>
           </div>
 
+          <!-- Immagine -->
+          <div class="entry-form-group">
+            <label for="immagine">{% trans "Immagine prodotto" %}</label>
+            <input type="file"
+                   id="immagine"
+                   name="immagine"
+                   accept="image/*"
+                   onchange="previewImage(event)">
+            <div id="imagePreview" style="margin-top:.8rem; display:none;">
+              <img id="preview" src="" alt="{% trans "Anteprima" %}" style="max-width:180px; max-height:180px; object-fit:cover; border-radius:.8rem; border:1px solid rgba(93,75,58,.16);">
+            </div>
+            {% if prodotto and prodotto.immagine %}
+            <div style="margin-top:.8rem;">
+              <p style="font-size:.7rem; color:#9b8064; margin-bottom:.5rem;">{% trans "Immagine attuale:" %}</p>
+              <img src="{{ prodotto.immagine.url }}" alt="{{ prodotto.nome }}" style="max-width:180px; max-height:180px; object-fit:cover; border-radius:.8rem; border:1px solid rgba(93,75,58,.16);">
+            </div>
+            {% endif %}
+          </div>
+
           <!-- Actions -->
-          <div class="divider"></div>
-          <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
-            <a href="{% url 'lista_prodotti' %}"
-               style="font-size:.73rem; letter-spacing:.1em; text-transform:uppercase; color:var(--taupe); text-decoration:none; transition:.25s ease;"
-               onmouseover="this.style.color='var(--ink)'"
-               onmouseout="this.style.color='var(--taupe)'">
+          <div class="entry-form-actions">
+            <a href="{% url 'lista_prodotti' %}" class="entry-back-link">
               <i class="bi bi-arrow-left me-1"></i> {% trans "Torna alla lista" %}
             </a>
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" class="entry-submit-btn">
               {% if prodotto %}{% trans "Salva modifiche" %}{% else %}{% trans "Salva prodotto" %}{% endif %} <i class="bi bi-check2 ms-1"></i>
             </button>
           </div>
 
+          <p style="font-size:.7rem; color:#9b8064; margin-top:1rem; text-align:center;">
+            {% trans "I campi contrassegnati con" %} <span style="color:#b65f5f;">*</span> {% trans "sono obbligatori." %}
+          </p>
         </form>
       </div>
 
-      <!-- Helper note -->
-      <p style="font-size:.73rem; color:var(--taupe); margin-top:1.2rem; letter-spacing:.04em; text-align:center;">
-        {% trans "I campi contrassegnati con" %} <span style="color:var(--danger);">*</span> {% trans "sono obbligatori." %}
-      </p>
+      <!-- Sidebar -->
+      <aside class="entry-side">
+        <div class="entry-side-card">
+          <h3>{% trans "Suggerimenti" %}</h3>
+          <ul>
+            <li>{% trans "Usa un nome chiaro e descrittivo." %}</li>
+            <li>{% trans "Scrivi una descrizione utile per la skincare." %}</li>
+            <li>{% trans "Scegli la categoria giusta per il filtro." %}</li>
+            <li>{% trans "Carica un'immagine chiara e ben illuminata." %}</li>
+          </ul>
+        </div>
+
+        <div class="entry-side-card">
+          <h3>{% trans "Categorie" %}</h3>
+          <p>{% trans "Crea categorie come Olio Viso, Gel Idratante, Crema Corpo, o Siero per organizzare al meglio i tuoi prodotti." %}</p>
+          <button type="button" class="entry-side-btn" data-bs-toggle="modal" data-bs-target="#categoryModal">
+            <i class="bi bi-plus me-1"></i> {% trans "Aggiungi categoria" %}
+          </button>
+        </div>
+
+        <div class="entry-side-card">
+          <h3>{% trans "Info" %}</h3>
+          <p style="margin-bottom:.3rem;"><strong style="color:#201915; font-weight:600;">{% trans "Categorie:" %}</strong> <span style="color:rgba(32,25,21,.6);">{{ categorie|length }}</span></p>
+          <p style="margin:0;"><strong style="color:#201915; font-weight:600;">{% trans "Prodotti:" %}</strong> <span style="color:rgba(32,25,21,.6);">{{ prodotti_count }}</span></p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- Category Modal -->
+<div class="modal fade" id="categoryModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content category-modal">
+      <div class="modal-header">
+        <h5 class="modal-title">{% trans "Nuova Categoria" %}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <form method="post" action="{% url 'aggiungi_categoria_rapida' %}">
+        {% csrf_token %}
+        <div class="modal-body">
+          <div class="entry-form-group">
+            <label for="catNome">{% trans "Nome categoria" %} <span>*</span></label>
+            <input type="text" id="catNome" name="nome" placeholder="{% trans "es. Olio Viso" %}" required>
+          </div>
+          <div class="entry-form-group">
+            <label for="catDesc">{% trans "Descrizione" %}</label>
+            <textarea id="catDesc" name="descrizione" placeholder="{% trans "Breve descrizione della categoria..." %}"></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="entry-modal-cancel" data-bs-dismiss="modal">{% trans "Annulla" %}</button>
+          <button type="submit" class="entry-submit-btn">{% trans "Salva categoria" %}</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
 
-{% endif %}
-
 {% endblock %}
 
 {% block extra_js %}
+<style>
+  /* ── Entry Hero ────────────────────────────────── */
+  .entry-hero {
+    position: relative;
+    padding: 4.4rem 0 3rem;
+    background:
+      radial-gradient(circle at 82% 18%, rgba(95, 122, 92, .13), transparent 30%),
+      linear-gradient(135deg, #f8f1e7 0%, #fffaf3 100%);
+    border-bottom: 1px solid rgba(93, 75, 58, .12);
+    overflow: hidden;
+  }
+
+  .entry-hero::after {
+    content: "";
+    position: absolute;
+    right: -80px;
+    top: -80px;
+    width: 230px;
+    height: 230px;
+    border-radius: 50%;
+    background: rgba(185, 137, 88, .12);
+  }
+
+  .entry-hero__breadcrumb {
+    position: relative;
+    z-index: 1;
+    font-size: .66rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: #b98958;
+    font-weight: 700;
+    margin-bottom: .85rem;
+  }
+
+  .entry-hero__breadcrumb a {
+    color: #b98958;
+    text-decoration: none;
+  }
+
+  .entry-hero__breadcrumb a:hover {
+    color: #201915;
+  }
+
+  .entry-hero__title {
+    position: relative;
+    z-index: 1;
+    font-family: var(--ff-display);
+    font-size: clamp(2.7rem, 5vw, 4.8rem);
+    font-weight: 300;
+    line-height: 1;
+    color: #201915;
+    margin-bottom: 1rem;
+  }
+
+  .entry-hero__text {
+    position: relative;
+    z-index: 1;
+    max-width: 560px;
+    color: rgba(32, 25, 21, .62);
+    font-size: .95rem;
+    line-height: 1.8;
+    margin: 0;
+  }
+
+  /* ── Entry Section ─────────────────────────────── */
+  .entry-section {
+    padding: 3.5rem 0 5rem;
+    background:
+      radial-gradient(circle at 12% 20%, rgba(185, 137, 88, .08), transparent 28%),
+      linear-gradient(180deg, #f8f5ef 0%, #fffaf3 100%);
+  }
+
+  .entry-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr);
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  .entry-form-card,
+  .entry-side-card {
+    background: rgba(255, 250, 243, .82);
+    border: 1px solid rgba(93, 75, 58, .13);
+    border-radius: 1.4rem;
+    box-shadow: 0 24px 70px rgba(75, 55, 38, .08);
+  }
+
+  .entry-form-card {
+    padding: 2rem;
+  }
+
+  .entry-side {
+    display: grid;
+    gap: 1rem;
+    position: sticky;
+    top: 105px;
+  }
+
+  .entry-side-card {
+    padding: 1.45rem;
+  }
+
+  .entry-side-card h3 {
+    font-family: var(--ff-display);
+    font-size: 1.55rem;
+    font-weight: 300;
+    color: #201915;
+    margin-bottom: .75rem;
+  }
+
+  .entry-side-card p,
+  .entry-side-card li {
+    color: rgba(32, 25, 21, .6);
+    font-size: .86rem;
+    line-height: 1.7;
+  }
+
+  .entry-side-card ul {
+    padding-left: 1.1rem;
+    margin: 0;
+  }
+
+  .entry-form-section-title {
+    font-size: .68rem;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: #b98958;
+    font-weight: 800;
+    margin-bottom: 1.2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(93, 75, 58, .12);
+  }
+
+  /* ── Form Fields ───────────────────────────────── */
+  .entry-form-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .entry-form-group {
+    margin-bottom: 1.15rem;
+  }
+
+  .entry-form-group label {
+    display: block;
+    font-size: .62rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: #9b8064;
+    font-weight: 800;
+    margin-bottom: .45rem;
+  }
+
+  .entry-form-group label span {
+    color: #b65f5f;
+  }
+
+  .entry-form-group input,
+  .entry-form-group textarea,
+  .entry-form-group select {
+    width: 100%;
+    border: 1px solid rgba(93, 75, 58, .16);
+    background: #fbf8f2;
+    border-radius: .9rem;
+    color: #201915;
+    font-size: .86rem;
+    outline: none;
+    transition: .2s ease;
+    font-family: var(--ff-body);
+  }
+
+  .entry-form-group input,
+  .entry-form-group select {
+    height: 46px;
+    padding: 0 1rem;
+  }
+
+  .entry-form-group textarea {
+    min-height: 135px;
+    padding: 1rem;
+    resize: vertical;
+  }
+
+  .entry-form-group input[type="file"] {
+    padding: .65rem 1rem;
+    height: auto;
+  }
+
+  .entry-form-group input:focus,
+  .entry-form-group textarea:focus,
+  .entry-form-group select:focus {
+    border-color: #b98958;
+    box-shadow: 0 0 0 4px rgba(185, 137, 88, .12);
+    background: #fff;
+  }
+
+  .entry-category-inline {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: .75rem;
+    align-items: center;
+  }
+
+  /* ── Buttons ───────────────────────────────────── */
+  .entry-small-btn,
+  .entry-side-btn,
+  .entry-modal-cancel {
+    height: 46px;
+    border: 1px solid rgba(93, 75, 58, .16);
+    background: rgba(255, 250, 243, .7);
+    color: #8d6040;
+    border-radius: .9rem;
+    padding: 0 1rem;
+    font-size: .64rem;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: .22s ease;
+    white-space: nowrap;
+    font-family: var(--ff-body);
+  }
+
+  .entry-small-btn:hover,
+  .entry-side-btn:hover,
+  .entry-modal-cancel:hover {
+    background: #201915;
+    border-color: #201915;
+    color: #fff8ef;
+  }
+
+  .entry-form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.7rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(93, 75, 58, .12);
+  }
+
+  .entry-back-link {
+    color: #9b8064;
+    text-decoration: none;
+    font-size: .68rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    transition: .2s ease;
+  }
+
+  .entry-back-link:hover {
+    color: #201915;
+  }
+
+  .entry-submit-btn {
+    height: 46px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .55rem;
+    border: 1px solid #201915;
+    background: #201915;
+    color: #fff8ef;
+    border-radius: .9rem;
+    padding: 0 1.6rem;
+    font-size: .68rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: .22s ease;
+    font-family: var(--ff-body);
+    text-decoration: none;
+  }
+
+  .entry-submit-btn:hover {
+    background: #b98958;
+    border-color: #b98958;
+    color: #fff8ef;
+    transform: translateY(-2px);
+  }
+
+  /* ── Category Modal ────────────────────────────── */
+  .category-modal {
+    background: #fffaf3;
+    border: 1px solid rgba(93, 75, 58, .13);
+    border-radius: 1.35rem;
+    box-shadow: 0 30px 90px rgba(0, 0, 0, .22);
+  }
+
+  .category-modal .modal-header,
+  .category-modal .modal-footer {
+    border-color: rgba(93, 75, 58, .12);
+  }
+
+  .category-modal .modal-title {
+    font-family: var(--ff-display);
+    font-size: 1.7rem;
+    font-weight: 300;
+    color: #201915;
+  }
+
+  /* ── Language Tabs ─────────────────────────────── */
+  .lang-tabs {
+    display: flex;
+    gap: .4rem;
+    margin-bottom: 1.5rem;
+  }
+  .lang-tab {
+    padding: .35rem 1rem;
+    border: 1px solid rgba(93, 75, 58, .16);
+    background: rgba(255, 250, 243, .5);
+    color: #9b8064;
+    border-radius: 2rem;
+    font-size: .65rem;
+    letter-spacing: .12em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: .2s ease;
+    font-family: var(--ff-body);
+  }
+  .lang-tab.active {
+    background: #201915;
+    border-color: #201915;
+    color: #fff8ef;
+  }
+  .lang-tab:hover:not(.active) {
+    background: rgba(185, 137, 88, .12);
+    border-color: rgba(185, 137, 88, .24);
+  }
+
+  /* ── Responsive ────────────────────────────────── */
+  @media (max-width: 991px) {
+    .entry-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .entry-side {
+      position: relative;
+      top: 0;
+    }
+  }
+
+  @media (max-width: 575px) {
+    .entry-hero {
+      padding: 3.7rem 0 2.6rem;
+    }
+
+    .entry-section {
+      padding: 2.4rem 0 3.5rem;
+    }
+
+    .entry-form-card {
+      padding: 1.25rem;
+    }
+
+    .entry-form-row {
+      grid-template-columns: 1fr;
+    }
+
+    .entry-category-inline {
+      grid-template-columns: 1fr;
+    }
+
+    .entry-form-actions {
+      align-items: stretch;
+      flex-direction: column;
+    }
+
+    .entry-submit-btn,
+    .entry-small-btn,
+    .entry-side-btn {
+      width: 100%;
+    }
+  }
+</style>
+
 <script>
-  // Subtle float label animation on focus
-  document.querySelectorAll('.form-control, .form-select').forEach(el => {
+  document.querySelectorAll('.entry-form-group input, .entry-form-group textarea, .entry-form-group select').forEach(el => {
     el.addEventListener('focus', () => {
-      el.closest('.mb-4, .col-sm-6')?.querySelector('.form-label')?.style &&
-        (el.closest('.mb-4, .col-sm-6').querySelector('.form-label').style.color = 'var(--accent)');
+      const label = el.closest('.entry-form-group')?.querySelector('label');
+      if (label) label.style.color = '#b98958';
     });
     el.addEventListener('blur', () => {
-      el.closest('.mb-4, .col-sm-6')?.querySelector('.form-label')?.style &&
-        (el.closest('.mb-4, .col-sm-6').querySelector('.form-label').style.color = 'var(--taupe)');
+      const label = el.closest('.entry-form-group')?.querySelector('label');
+      if (label) label.style.color = '#9b8064';
     });
   });
 
-  // Image preview
   function previewImage(event) {
     const file = event.target.files[0];
     if (file) {
@@ -219,5 +672,16 @@
       reader.readAsDataURL(file);
     }
   }
+
+  // Language tabs
+  document.querySelectorAll('.lang-tab').forEach(tab => {
+    tab.addEventListener('click', function() {
+      document.querySelectorAll('.lang-tab').forEach(t => t.classList.remove('active'));
+      this.classList.add('active');
+      document.querySelectorAll('.lang-panel').forEach(p => p.style.display = 'none');
+      var panel = document.querySelector('.lang-panel[data-lang="' + this.dataset.lang + '"]');
+      if (panel) panel.style.display = 'block';
+    });
+  });
 </script>
 {% endblock %}
